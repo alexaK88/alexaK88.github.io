@@ -1,5 +1,4 @@
-<style>
-/* ---------- BASE ---------- */
+/* ---------- RESET ---------- */
 * {
   margin: 0;
   padding: 0;
@@ -11,201 +10,124 @@ body {
   background: radial-gradient(circle at top, #0a0f1f, #000);
   color: #e2e8f0;
   line-height: 1.7;
-  overflow-x: hidden;
 }
 
-/* ---------- NAVBAR ---------- */
-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  z-index: 10;
-  background: rgba(0,0,0,0.3);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-
-nav a {
-  color: #8bdcff;
-  text-decoration: none;
-  font-weight: 500;
-  position: relative;
-  transition: 0.3s;
-}
-
-nav a::after {
-  content: "";
-  position: absolute;
-  height: 2px;
-  width: 0%;
-  bottom: -4px;
-  left: 0;
-  background: #38eaff;
-  box-shadow: 0 0 6px #38eaff;
-  transition: 0.3s;
-}
-
-nav a:hover::after {
-  width: 100%;
-}
-
-/* ---------- HERO ---------- */
+/* ---------- LAYOUT ---------- */
 header {
   text-align: center;
-  padding: 9rem 1rem 6rem;
+  padding: 4rem 1rem 3rem;
 }
 
 header h1 {
-  font-size: 3.7rem;
+  font-size: 3rem;
   font-weight: 800;
   background: linear-gradient(90deg, #38eaff, #8b5cf6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 20px rgba(56,234,255,0.4);
-  animation: glowIn 1.2s ease-out forwards;
 }
 
-header p {
-  font-size: 1.3rem;
+header h2 {
+  margin-top: 0.5rem;
   color: #94a3b8;
-  margin-top: 1rem;
-  opacity: 0;
-  animation: fadeInUp 1.3s ease-out 0.4s forwards;
+  font-weight: 400;
 }
 
-/* ---------- SECTION ---------- */
 section {
-  max-width: 1100px;
-  margin: 4rem auto;
-  padding: 2rem;
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1.5rem;
 }
 
-section h2 {
-  font-size: 2.2rem;
-  margin-bottom: 1.2rem;
-  padding-left: 14px;
+/* ---------- SECTION TITLES ---------- */
+section h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
   border-left: 4px solid #38eaff;
-  text-shadow: 0 0 8px rgba(56,234,255,0.6);
+  padding-left: 0.6rem;
 }
 
-/* ---------- NEON CARD ---------- */
+/* ---------- CARD ---------- */
 .card {
-  background: rgba(0, 8, 20, 0.6);
-  border: 1px solid rgba(56, 234, 255, 0.2);
-  border-radius: 1.2rem;
-  padding: 2rem;
-  margin-bottom: 1.5rem;
-  backdrop-filter: blur(14px);
-  box-shadow: 0 0 12px rgba(56,234,255,0.15);
+  background: rgba(0, 8, 20, 0.7);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(56, 234, 255, 0.4);
+  box-shadow: 0 0 18px rgba(56, 234, 255, 0.3);
   position: relative;
-  overflow: hidden;
-  transition: 0.4s;
 }
 
-.card:hover {
-  border-color: #38eaff;
-  box-shadow: 0 0 20px rgba(56,234,255,0.5), inset 0 0 20px rgba(56,234,255,0.3);
-  transform: translateY(-6px);
+/* Important: allow clicks inside the card */
+.card,
+.card * {
+  pointer-events: auto;
 }
 
+/* If you want a glow border overlay, keep it non-blocking */
 .card::before {
   content: "";
   position: absolute;
   inset: 0;
-  border-radius: 1.2rem;
-  padding: 2px;
-  background: linear-gradient(135deg, rgba(56,234,255,0.4), rgba(139,92,246,0.4));
-  -webkit-mask: 
-    linear-gradient(#000 0 0) content-box, 
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-          mask-composite: exclude;
-  opacity: 0;
-  transition: 0.4s;
-}
-
-.card:hover::before {
-  opacity: 1;
-}
-
-/* ---------- PROJECT GRID ---------- */
-.project-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.7rem;
+  border-radius: inherit;
+  border: 1px solid rgba(56, 234, 255, 0.5);
+  opacity: 0.15;
+  pointer-events: none; /* <-- this is key so it doesn't block links */
 }
 
 /* ---------- SKILLS ---------- */
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
 .skill {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  background: rgba(15, 23, 42, 0.7);
+  padding: 0.4rem 0.9rem;
   border-radius: 999px;
-  margin: 0.3rem;
-  font-size: 0.9rem;
-  border: 1px solid rgba(56,234,255,0.3);
-  color: #b9e8ff;
-  transition: 0.3s;
+  background: #111827;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  font-size: 0.85rem;
 }
 
-.skill:hover {
-  background: rgba(56,234,255,0.15);
-  box-shadow: 0 0 8px rgba(56,234,255,0.6);
-}
-
-/* ---------- CONTACT LINKS ---------- */
-.contact a {
+/* ---------- LINKS ---------- */
+a {
   color: #38eaff;
-  text-shadow: 0 0 7px rgba(56,234,255,0.5);
   text-decoration: none;
 }
 
-.contact a:hover {
-  text-shadow: 0 0 12px rgba(56,234,255,0.9);
+a:hover {
+  text-decoration: underline;
 }
 
+/* ---------- CV BUTTON ---------- */
 .cv-button {
   display: inline-block;
   margin-top: 1rem;
-  padding: 0.8rem 1.6rem;
+  padding: 0.7rem 1.4rem;
   background: rgba(56, 234, 255, 0.1);
-  border: 1px solid rgba(56, 234, 255, 0.5);
-  border-radius: 10px;
+  border-radius: 0.7rem;
+  border: 1px solid rgba(56, 234, 255, 0.7);
   color: #38eaff;
-  font-size: 1rem;
   font-weight: 600;
   text-decoration: none;
-  text-shadow: 0 0 8px rgba(56,234,255,0.8);
-  box-shadow: 0 0 12px rgba(56,234,255,0.3);
-  transition: 0.3s ease;
-  position: relative;
-  z-index: 10;
+  text-shadow: 0 0 8px rgba(56, 234, 255, 0.9);
+  box-shadow: 0 0 14px rgba(56, 234, 255, 0.4);
   cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  position: relative;
+  z-index: 1; /* make sure it's above card background */
 }
 
 .cv-button:hover {
   background: rgba(56, 234, 255, 0.2);
-  box-shadow: 0 0 20px rgba(56,234,255,0.6),
-              0 0 32px rgba(139,92,246,0.4);
-  transform: translateY(-4px);
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(56, 234, 255, 0.7);
 }
 
-.card::before {
-  pointer-events: none;
-
-/* ---------- ANIMATIONS ---------- */
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(40px); }
-  to   { opacity: 1; transform: translateY(0); }
+/* ---------- FOOTER ---------- */
+footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: #64748b;
+  font-size: 0.85rem;
 }
-
-@keyframes glowIn {
-  from { opacity: 0; filter: blur(6px); }
-  to   { opacity: 1; filter: blur(0); }
-}
-</style>
