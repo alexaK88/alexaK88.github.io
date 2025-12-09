@@ -169,6 +169,30 @@ section h2 {
   text-shadow: 0 0 12px rgba(56,234,255,0.9);
 }
 
+.cv-button {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.8rem 1.6rem;
+  background: rgba(56, 234, 255, 0.1);
+  border: 1px solid rgba(56, 234, 255, 0.5);
+  border-radius: 10px;
+  color: #38eaff;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  text-shadow: 0 0 8px rgba(56,234,255,0.8);
+  box-shadow: 0 0 12px rgba(56,234,255,0.3);
+  transition: 0.3s ease;
+}
+
+.cv-button:hover {
+  background: rgba(56, 234, 255, 0.2);
+  box-shadow: 0 0 20px rgba(56,234,255,0.6),
+              0 0 32px rgba(139,92,246,0.4);
+  transform: translateY(-4px);
+}
+
+
 /* ---------- ANIMATIONS ---------- */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(40px); }
