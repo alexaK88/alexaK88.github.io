@@ -186,3 +186,18 @@ footer {
   color: #64748b;
   font-size: 0.85rem;
 }
+
+/* ======== SCROLL ANIMATIONS ======== */
+
+/* Start invisible + slightly moved down */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.9s ease-out;
+}
+
+/* When element enters viewport */
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
