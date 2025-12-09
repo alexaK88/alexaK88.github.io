@@ -3,61 +3,83 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Portfolio</title>
+  <title>Aleksandra Karpova – Portfolio</title>
 
   <!-- Styles -->
   <link rel="stylesheet" href="style.css">
 
-  <!-- Favicon -->
+  <!-- Favicon (assuming favicon.svg exists in repo root) -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 
-
 <body>
+
+  <!-- NAVBAR -->
   <nav class="navbar">
-  <a href="#about">About</a>
-  <a href="#projects">Projects</a>
-  <a href="#skills">Skills</a>
-  <a href="#contact">Contact</a>
-  <a href="cv.pdf" download class="nav-cv">CV</a>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+    <a href="cv.pdf" download class="nav-cv">CV</a>
   </nav>
 
   <!-- HERO / INTRO SECTION -->
   <header>
     <h1>Aleksandra Karpova</h1>
-    <h2>Software Engineer • ML Engineer • Quantum information enthusiast</h2>
+    <h2>Software Engineer • Backend • Data • ML</h2>
   </header>
 
   <!-- ABOUT SECTION -->
   <section id="about" class="reveal">
     <h3>About Me</h3>
-    <p>
-      I am a software engineer passionate about building data-driven systems, automation tools,
-      and efficient backend architectures.  
-      I enjoy solving real-world problems using clean code, modern frameworks, and scalable structures.
-    </p>
+    <div class="card">
+      <p>
+        I am a software engineer passionate about building data-driven systems, automation tools,
+        and efficient backend architectures. I enjoy solving real-world problems using clean code,
+        modern frameworks, and scalable structures.
+      </p>
+    </div>
   </section>
 
   <!-- PROJECTS SECTION -->
   <section id="projects" class="reveal">
     <h3>Projects</h3>
+
+    <div class="card">
+      <h4>Realtime Mill Monitoring System</h4>
+      <p>
+        A modular system that processes industrial sensor data and predicts mill performance using
+        regression models and real-time visualizations.
+      </p>
+      <p><strong>Tech:</strong> FastAPI · Pandas · Plotly · Streamlit · ML</p>
+    </div>
+
+    <div class="card">
+      <h4>Cross-Platform OPC UA Adapter</h4>
+      <p>
+        Platform-agnostic OPC UA interface with Linux-focused implementation, node discovery, and
+        subscription handling using clean design patterns.
+      </p>
+      <p><strong>Tech:</strong> Python · OPC UA · Docker</p>
+    </div>
   </section>
 
   <!-- SKILLS SECTION -->
   <section id="skills" class="reveal">
     <h3>Skills</h3>
 
-    <div class="skills-list">
-      <div class="skill">Python</div>
-      <div class="skill">Java</div>
-      <div class="skill">Dart & Flutter</div>
-      <div class="skill">Machine Learning</div>
-      <div class="skill">Pandas, Scikit-Learn, Tensorflow, PyTorch</div>
-      <div class="skill">Qiskit, Pennylane</div>
-      <div class="skill">React, Flask, API REST, FastAPI, Streamlit</div>
-      <div class="skill">Docker</div>
-      <div class="skill">Git</div>
-      <div class="skill">Grafana, Prometheus</div>
+    <div class="card">
+      <div class="skills-list">
+        <div class="skill">Python</div>
+        <div class="skill">Java</div>
+        <div class="skill">Dart & Flutter</div>
+        <div class="skill">Machine Learning</div>
+        <div class="skill">Pandas, Scikit-Learn, Tensorflow, PyTorch, Qiskit, Pennylane</div>
+        <div class="skill">React, Flask, REST APIs, FastAPI, Streamlit</div>
+        <div class="skill">Docker</div>
+        <div class="skill">Git</div>
+        <div class="skill">Grafana, Prometheus</div>
+      </div>
     </div>
   </section>
 
@@ -67,42 +89,42 @@
     <div class="card contact">
       <p>Email: <a href="mailto:aleksandra.karpova042@gmail.com">aleksandra.karpova042@gmail.com</a></p>
       <p>GitHub: <a href="https://github.com/alexaK88" target="_blank">github.com/alexaK88</a></p>
-      <p>LinkedIn: 
+      <p>LinkedIn:
         <a href="https://www.linkedin.com/in/alekskarpova/" target="_blank">
           www.linkedin.com/in/alekskarpova/
         </a>
       </p>
-        <a class="cv-button" href="cv.pdf" download>
-          ⬇ Download my CV
-        </a>
+
+      <a class="cv-button" href="cv.pdf" download>⬇ Download my CV</a>
     </div>
   </section>
-
 
   <footer>
     © 2025 Aleksandra Karpova — Portfolio built with GitHub Pages
   </footer>
 
+  <!-- SCROLL REVEAL SCRIPT (keep at the end of body) -->
   <script>
-  const reveals = document.querySelectorAll(".reveal");
+    const reveals = document.querySelectorAll(".reveal");
 
-  const options = {
-    threshold: 0.2
-  };
+    const options = {
+      threshold: 0.2
+    };
 
-  const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-      }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          // Uncomment if you want it to animate only once:
+          // observer.unobserve(entry.target);
+        }
+      });
+    }, options);
+
+    reveals.forEach(reveal => {
+      observer.observe(reveal);
     });
-  }, options);
-
-  reveals.forEach(reveal => {
-    observer.observe(reveal);
-  });
-</script>
-
+  </script>
 </body>
 </html>
 
