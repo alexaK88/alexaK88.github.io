@@ -288,6 +288,17 @@ body.light-theme footer {
   color: #6b7280;
 }
 
+/* ---------- EXPERIENCE LISTS ---------- */
+#experience ul {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  padding-left: 1.4rem;
+}
+
+#experience li {
+  margin-bottom: 0.4rem;
+  line-height: 1.6;
+}
 
 /* ---------- SCROLL REVEAL ANIMATIONS ---------- */
 .reveal {
