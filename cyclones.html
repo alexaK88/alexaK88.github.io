@@ -1,1 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cyclone Classification – Aleksandra Karpova</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="index.html#about">About</a>
+  <a href="projects.html" class="nav-active">Projects</a>
+  <a href="index.html#skills">Skills</a>
+  <a href="journey.html">Journey</a>
+  <a href="blog.html">Blog</a>
+  <a href="cv.pdf" download class="nav-cv">CV</a>
+  <button id="theme-toggle" class="theme-toggle">🌙</button>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <h1 class="hero-title">Cyclone Classification ML Project</h1>
+  <h2 class="hero-subtitle">
+    Predicting tropical cyclone categories from meteorological data using supervised learning.
+  </h2>
+</header>
+
+<!-- OVERVIEW -->
+<section class="reveal">
+  <h3>Overview</h3>
+  <div class="card">
+    <p>
+      This project focuses on classifying tropical cyclones into intensity categories based on
+      official meteorological records. It was developed as the final project for a university
+      Machine Learning course and demonstrates the full workflow: data exploration, preprocessing,
+      model training, evaluation, and interpretation.
+    </p>
+    <p>
+      The goal is to learn from historical cyclone data and build a model that can accurately
+      assign each observation to the correct cyclone type or intensity level, supporting better
+      understanding and potential decision support for extreme weather analysis.
+    </p>
+  </div>
+</section>
+
+<!-- DATASET -->
+<section class="reveal">
+  <h3>Dataset</h3>
+  <div class="card">
+    <ul>
+      <li>Official tropical cyclone dataset with labeled cyclone categories.</li>
+      <li>Tabular features such as intensity-related measurements and meteorological variables.</li>
+      <li>Data cleaning: handled missing values, removed inconsistencies, and standardized formats.</li>
+      <li>Train / test split to evaluate generalization performance on unseen data.</li>
+    </ul>
+    <p>
+      All analysis and experiments are contained inside a Jupyter Notebook
+      (<code>final_project.ipynb</code>) in the project repository.
+    </p>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section class="reveal">
+  <h3>Modeling Approach</h3>
+  <div class="card">
+    <p>
+      The project follows a classic supervised learning pipeline for classification:
+    </p>
+    <ul>
+      <li>Exploratory Data Analysis (EDA) to understand feature distributions and class balance.</li>
+      <li>Feature preprocessing (scaling / encoding as needed, depending on feature types).</li>
+      <li>Training several classification models (e.g. logistic regression, tree-based methods) and comparing them.</li>
+      <li>Hyperparameter tuning using cross-validation to improve performance.</li>
+      <li>Evaluating models with metrics appropriate for multi-class classification.</li>
+    </ul>
+    <p>
+      The final selected model strikes a balance between accuracy, robustness, and interpretability.
+    </p>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="reveal">
+  <h3>Results & Evaluation</h3>
+  <div class="card">
+    <p>
+      Model performance is evaluated using:
+    </p>
+    <ul>
+      <li>Accuracy on the held-out test set.</li>
+      <li>Confusion matrix to understand per-class performance and misclassifications.</li>
+      <li>Precision, recall, and F1-score to account for potential class imbalance.</li>
+    </ul>
+    <p>
+      Visualizations include:
+    </p>
+    <ul>
+      <li>Class distribution plots.</li>
+      <li>Confusion matrix heatmap.</li>
+      <li>Feature importance / contribution analysis (where applicable).</li>
+    </ul>
+    <p>
+      Together, these provide a clear picture of how well the model distinguishes between cyclone categories
+      and where it can be improved with more data or additional features.
+    </p>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section class="reveal">
+  <h3>Tech Stack</h3>
+  <div class="card">
+    <ul>
+      <li><strong>Language:</strong> Python</li>
+      <li><strong>Environment:</strong> Jupyter Notebook</li>
+      <li><strong>Libraries:</strong> NumPy, Pandas, Scikit-Learn, Matplotlib / Seaborn</li>
+      <li><strong>Version control:</strong> Git & GitHub</li>
+    </ul>
+  </div>
+</section>
+
+<!-- LINKS -->
+<section class="reveal">
+  <h3>Repository & Notebook</h3>
+  <div class="card">
+    <p>
+      You can explore the full code, notebook, and documentation in the GitHub repository:
+    </p>
+    <p>
+      <a href="https://github.com/alexaK88/Cyclones_classification_ML_project" target="_blank">
+        Cyclones Classification ML Project on GitHub →
+      </a>
+    </p>
+    <p>
+      The main analysis is contained in <code>final_project.ipynb</code>, which walks through
+      data loading, preprocessing, model training, and evaluation step by step.
+    </p>
+  </div>
+</section>
+
+<footer>
+  © 2025 Aleksandra Karpova — Portfolio built with GitHub Pages
+</footer>
+
+<!-- SCRIPT: scroll reveal + theme toggle -->
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll(".reveal");
+  function revealNow() {
+    reveals.forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 80) el.classList.add("visible");
+    });
+  }
+  window.addEventListener("scroll", revealNow);
+  window.addEventListener("load", revealNow);
+
+  // Theme toggle
+  const toggleBtn = document.getElementById("theme-toggle");
+  const body = document.body;
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "light") {
+    body.classList.add("light-theme");
+    toggleBtn.textContent = "☀️";
+  } else {
+    toggleBtn.textContent = "🌙";
+  }
+  toggleBtn.addEventListener("click", () => {
+    const isLight = body.classList.toggle("light-theme");
+    toggleBtn.textContent = isLight ? "☀️" : "🌙";
+    localStorage.setItem("theme", isLight ? "light" : "dark");
+  });
+</script>
+
+</body>
+</html>
 
