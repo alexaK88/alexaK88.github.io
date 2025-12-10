@@ -456,5 +456,76 @@ body.light-theme .tech-item img {
   filter: none;
 }
 
+/* ---------- FLASHCARD GRID ---------- */
+.flashcard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.8rem;
+  margin-top: 2rem;
+}
+
+.flashcard {
+  text-decoration: none;
+  color: inherit;
+  perspective: 1000px;
+}
+
+.flashcard-content {
+  background: rgba(0, 8, 20, 0.7);
+  border: 1px solid rgba(56, 234, 255, 0.5);
+  border-radius: 1rem;
+  padding: 1.6rem;
+  height: 180px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  box-shadow: 0 0 18px rgba(56, 234, 255, 0.2);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  transform-style: preserve-3d;
+}
+
+/* Hover animation (pop + glow) */
+.flashcard:hover .flashcard-content {
+  transform: translateY(-8px) scale(1.04) rotate3d(1, 1, 0, 6deg);
+  box-shadow: 0 0 25px rgba(56, 234, 255, 0.6);
+  border-color: rgba(56, 234, 255, 0.8);
+}
+
+/* Title */
+.flashcard-content h4 {
+  margin-bottom: 0.4rem;
+  color: #8bdcff;
+  font-size: 1.2rem;
+}
+
+/* Text */
+.flashcard-content p {
+  color: #cdd5df;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* ---------- LIGHT THEME ---------- */
+body.light-theme .flashcard-content {
+  background: #ffffff;
+  border-color: rgba(148, 163, 184, 0.5);
+  box-shadow: 0 4px 25px rgba(15, 23, 42, 0.1);
+}
+
+body.light-theme .flashcard:hover .flashcard-content {
+  border-color: rgba(37, 99, 235, 0.8);
+  box-shadow: 0 0 22px rgba(37, 99, 235, 0.5);
+}
+
+body.light-theme .flashcard-content h4 {
+  color: #1d4ed8;
+}
+
+body.light-theme .flashcard-content p {
+  color: #475569;
+}
+
 }
 
