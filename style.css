@@ -321,5 +321,58 @@ body.light-theme footer {
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
+
+/* ---------- TECH STACK GRID ---------- */
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.tech-item {
+  background: rgba(0, 8, 20, 0.7);
+  border: 1px solid rgba(56, 234, 255, 0.4);
+  box-shadow: 0 0 14px rgba(56, 234, 255, 0.2);
+  border-radius: 0.8rem;
+  padding: 1rem 0.5rem;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tech-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 18px rgba(56, 234, 255, 0.6);
+}
+
+.tech-item img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 0.5rem;
+  filter: drop-shadow(0 0 6px rgba(56, 234, 255, 0.5));
+}
+
+.tech-item span {
+  display: block;
+  font-size: 0.9rem;
+  margin-top: 0.3rem;
+  color: #e2e8f0;
+}
+
+/* Light theme overrides */
+body.light-theme .tech-item {
+  background: #ffffff;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  box-shadow: 0 0 10px rgba(148, 163, 184, 0.2);
+}
+
+body.light-theme .tech-item span {
+  color: #1f2937;
+}
+
+body.light-theme .tech-item img {
+  filter: none;
+}
+
 }
 
