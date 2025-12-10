@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog – Aleksandra Karpova</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="index.html#about">About</a>
+  <a href="index.html#projects">Projects</a>
+  <a href="index.html#skills">Skills</a>
+  <a href="blog.html">Blog</a>
+  <a href="journey.html">Journey</a>
+  <a href="cv.pdf" download class="nav-cv">CV</a>
+  <button id="theme-toggle" class="theme-toggle">🌙</button>
+</nav>
+
+<header>
+  <h1>Blog & Notes</h1>
+  <h2>My thoughts, experiments, and engineering notes</h2>
+</header>
+
+<section id="blog" class="reveal">
+  <h3>Posts</h3>
+
+  <div class="blog-list">
+
+    <div class="blog-item card">
+      <h4>Understanding OPC UA: A Developer’s Guide</h4>
+      <p>What OPC UA is, how nodes work, browsing, subscriptions, and implementing clients.</p>
+      <a href="#" class="blog-link">Read more →</a>
+    </div>
+
+    <div class="blog-item card">
+      <h4>Building Real-Time ML Systems with FastAPI</h4>
+      <p>How to structure ingestion, streaming prediction updates, and dashboarding.</p>
+      <a href="#" class="blog-link">Read more →</a>
+    </div>
+
+    <div class="blog-item card">
+      <h4>Quantum Circuits Explained with Qiskit</h4>
+      <p>A simple breakdown of gates, circuits, states, and variational models.</p>
+      <a href="#" class="blog-link">Read more →</a>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  © 2025 Aleksandra Karpova — Portfolio built with GitHub Pages
+</footer>
+
+<!-- Same script -->
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll(".reveal");
+  function revealNow() {
+    reveals.forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 80) el.classList.add("visible");
+    });
+  }
+  window.addEventListener("scroll", revealNow);
+  window.addEventListener("load", revealNow);
+
+  // Theme toggle
+  const toggleBtn = document.getElementById("theme-toggle");
+  const body = document.body;
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "light") {
+    body.classList.add("light-theme");
+    toggleBtn.textContent = "☀️";
+  }
+  toggleBtn.addEventListener("click", () => {
+    const isLight = body.classList.toggle("light-theme");
+    toggleBtn.textContent = isLight ? "☀️" : "🌙";
+    localStorage.setItem("theme", isLight ? "light" : "dark");
+  });
+</script>
+
+</body>
+</html>
