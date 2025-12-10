@@ -106,28 +106,57 @@
     © 2025 Aleksandra Karpova — Portfolio built with GitHub Pages
   </footer>
 
-  <!-- SCROLL REVEAL SCRIPT (keep at the end of body) -->
   <script>
-    const reveals = document.querySelectorAll(".reveal");
+  // ----- Scroll reveal -----
+  const reveals = document.querySelectorAll(".reveal");
 
-    const options = {
-      threshold: 0.2
-    };
+  const options = {
+    threshold: 0.2
+  };
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          // Uncomment if you want it to animate only once:
-          // observer.unobserve(entry.target);
-        }
-      });
-    }, options);
-
-    reveals.forEach(reveal => {
-      observer.observe(reveal);
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        // observer.unobserve(entry.target); // if you want it only once
+      }
     });
-  </script>
+  }, options);
+
+  reveals.forEach(reveal => {
+    observer.observe(reveal);
+  });
+
+  // ----- Light / Dark theme toggle -----
+  const toggleBtn = document.getElementById("theme-toggle");
+  const body = document.body;
+
+  // Load saved theme from localStorage (if any)
+  const savedTheme = localStorage.getItem("theme");
+
+  if (savedTheme === "light") {
+    body.classList.add("light-theme");
+    if (toggleBtn) toggleBtn.textContent = "☀️";
+  } else {
+    // default: dark theme
+    body.classList.remove("light-theme");
+    if (toggleBtn) toggleBtn.textContent = "🌙";
+  }
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener("click", () => {
+      const isLight = body.classList.toggle("light-theme");
+      if (isLight) {
+        toggleBtn.textContent = "☀️";
+        localStorage.setItem("theme", "light");
+      } else {
+        toggleBtn.textContent = "🌙";
+        localStorage.setItem("theme", "dark");
+      }
+    });
+  }
+</script>
+
 </body>
 </html>
 
