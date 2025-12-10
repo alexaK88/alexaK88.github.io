@@ -192,3 +192,111 @@ footer {
   transform: translateY(0);
 }
 
+/* ---------- THEME TOGGLE BUTTON ---------- */
+.theme-toggle {
+  margin-left: 1rem;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  background: rgba(15, 23, 42, 0.9);
+  color: #e5e7eb;
+  border-radius: 999px;
+  padding: 0.3rem 0.8rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(15, 23, 42, 0.7);
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 14px rgba(56, 234, 255, 0.4);
+}
+
+/* ---------- LIGHT THEME OVERRIDES ---------- */
+
+body.light-theme {
+  background: radial-gradient(circle at top, #e5f2ff, #f9fafb);
+  color: #0f172a;
+}
+
+/* Navbar in light mode */
+body.light-theme .navbar {
+  background: rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+  backdrop-filter: blur(10px);
+}
+
+body.light-theme .navbar a {
+  color: #1f2933;
+}
+
+body.light-theme .navbar a::after {
+  background: #2563eb;
+  box-shadow: 0 0 4px #2563eb;
+}
+
+body.light-theme .navbar .nav-cv {
+  color: #1d4ed8;
+  text-shadow: none;
+}
+
+body.light-theme .theme-toggle {
+  background: #e5e7eb;
+  color: #0f172a;
+  box-shadow: 0 0 8px rgba(148, 163, 184, 0.7);
+}
+
+/* Header text in light mode */
+body.light-theme header h1 {
+  background: linear-gradient(90deg, #1d4ed8, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+body.light-theme header h2 {
+  color: #4b5563;
+}
+
+/* Cards in light mode */
+body.light-theme .card {
+  background: #ffffff;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+}
+
+body.light-theme .card::before {
+  border-color: rgba(148, 163, 184, 0.5);
+}
+
+/* Skills pills */
+body.light-theme .skill {
+  background: #f3f4f6;
+  border-color: rgba(148, 163, 184, 0.9);
+  color: #111827;
+}
+
+/* Links in light mode */
+body.light-theme a {
+  color: #1d4ed8;
+}
+
+/* CV button in light mode */
+body.light-theme .cv-button {
+  background: #e0f2fe;
+  border-color: #38bdf8;
+  color: #075985;
+  text-shadow: none;
+  box-shadow: 0 0 12px rgba(37, 99, 235, 0.35);
+}
+
+body.light-theme .cv-button:hover {
+  background: #bae6fd;
+  box-shadow: 0 0 18px rgba(37, 99, 235, 0.5);
+}
+
+/* Footer in light mode */
+body.light-theme footer {
+  color: #6b7280;
+}
