@@ -1,43 +1,116 @@
-<div class="flashcard-grid">
+<!DOCTYPE html>
+<html lang="en">
 
-  <!-- Cyclone Classification -->
-  <a href="cyclones.html" class="flashcard">
-    <div class="flashcard-content">
-      <h4>Cyclone Classification</h4>
-      <p>ML model predicting cyclone intensity from meteorological data.</p>
-    </div>
-  </a>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects – Aleksandra Karpova</title>
 
-  <!-- Battleship -->
-  <a href="battleship.html" class="flashcard">
-    <div class="flashcard-content">
-      <h4>Battleship Engine</h4>
-      <p>Strategy game engine with AI logic and OOP architecture.</p>
-    </div>
-  </a>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
 
-  <!-- Mill Monitoring -->
-  <a href="mill-monitoring.html" class="flashcard">
-    <div class="flashcard-content">
-      <h4>Real-Time Mill Monitoring</h4>
-      <p>FastAPI + ML pipeline for industrial performance simulation.</p>
-    </div>
-  </a>
+<body>
 
-  <!-- OPC UA -->
-  <a href="opcua.html" class="flashcard">
-    <div class="flashcard-content">
-      <h4>OPC UA Adapter</h4>
-      <p>Cross-platform interface using patterns and industrial protocols.</p>
-    </div>
-  </a>
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="index.html#about">About</a>
+  <a href="projects.html" class="nav-active">Projects</a>
+  <a href="index.html#skills">Skills</a>
+  <a href="journey.html">Journey</a>
+  <a href="blog.html">Blog</a>
+  <a href="cv.pdf" download class="nav-cv">CV</a>
+  <button id="theme-toggle" class="theme-toggle">🌙</button>
+</nav>
 
-  <!-- Quantum -->
-  <a href="quantum.html" class="flashcard">
-    <div class="flashcard-content">
-      <h4>Quantum Circuits</h4>
-      <p>Qiskit & PennyLane experiments with variational models.</p>
-    </div>
-  </a>
+<!-- HEADER -->
+<header class="hero">
+  <h1 class="hero-title">Projects</h1>
+  <h2 class="hero-subtitle">Machine Learning • Backend Engineering • Quantum Computing</h2>
+</header>
 
-</div>
+<!-- PROJECTS GRID -->
+<section class="reveal">
+  <h3>Highlighted Projects</h3>
+
+  <div class="flashcard-grid">
+
+    <!-- Cyclones -->
+    <a href="cyclones.html" class="flashcard">
+      <div class="flashcard-content">
+        <h4>Cyclone Classification</h4>
+        <p>Machine learning system predicting cyclone intensity classes.</p>
+      </div>
+    </a>
+
+    <!-- Battleship -->
+    <a href="battleship.html" class="flashcard">
+      <div class="flashcard-content">
+        <h4>Battleship Engine</h4>
+        <p>Strategy game logic with OOP design and intelligent AI players.</p>
+      </div>
+    </a>
+
+    <!-- Mill Monitoring -->
+    <a href="mill-monitoring.html" class="flashcard">
+      <div class="flashcard-content">
+        <h4>Real-Time Mill Monitoring</h4>
+        <p>FastAPI, ML regressors, dashboards, and live data simulation.</p>
+      </div>
+    </a>
+
+    <!-- OPC UA -->
+    <a href="opcua.html" class="flashcard">
+      <div class="flashcard-content">
+        <h4>OPC UA Adapter</h4>
+        <p>Cross-platform client abstraction with backend architecture patterns.</p>
+      </div>
+    </a>
+
+    <!-- Quantum -->
+    <a href="quantum.html" class="flashcard">
+      <div class="flashcard-content">
+        <h4>Quantum Experiments</h4>
+        <p>Qiskit & PennyLane circuits, variational models, optimization.</p>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<footer>
+  © 2025 Aleksandra Karpova — Portfolio built with GitHub Pages
+</footer>
+
+<!-- SCRIPT -->
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll(".reveal");
+  function revealNow() {
+    reveals.forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 80) el.classList.add("visible");
+    });
+  }
+  window.addEventListener("scroll", revealNow);
+  window.addEventListener("load", revealNow);
+
+  // Theme toggle
+  const toggleBtn = document.getElementById("theme-toggle");
+  const body = document.body;
+  const savedTheme = localStorage.getItem("theme");
+
+  if (savedTheme === "light") {
+    body.classList.add("light-theme");
+    toggleBtn.textContent = "☀️";
+  }
+
+  toggleBtn.addEventListener("click", () => {
+    const isLight = body.classList.toggle("light-theme");
+    toggleBtn.textContent = isLight ? "☀️" : "🌙";
+    localStorage.setItem("theme", isLight ? "light" : "dark");
+  });
+</script>
+
+</body>
+</html>
