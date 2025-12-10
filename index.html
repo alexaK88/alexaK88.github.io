@@ -16,14 +16,13 @@
 
   <!-- NAVBAR -->
   <nav class="navbar">
-  <a href="#about">About</a>
-  <a href="#projects">Projects</a>
-  <a href="#skills">Skills</a>
-  <a href="#contact">Contact</a>
-  <a href="cv.pdf" download class="nav-cv">CV</a>
-  <button id="theme-toggle" class="theme-toggle" type="button">🌙</button>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+    <a href="cv.pdf" download class="nav-cv">CV</a>
+    <button id="theme-toggle" class="theme-toggle" type="button">🌙</button>
   </nav>
-
 
   <!-- HERO / INTRO SECTION -->
   <header>
@@ -47,23 +46,6 @@
   <section id="projects" class="reveal">
     <h3>Projects</h3>
 
-    <div class="card">
-      <h4>Realtime Mill Monitoring System</h4>
-      <p>
-        A modular system that processes industrial sensor data and predicts mill performance using
-        regression models and real-time visualizations.
-      </p>
-      <p><strong>Tech:</strong> FastAPI · Pandas · Plotly · Streamlit · ML</p>
-    </div>
-
-    <div class="card">
-      <h4>Cross-Platform OPC UA Adapter</h4>
-      <p>
-        Platform-agnostic OPC UA interface with Linux-focused implementation, node discovery, and
-        subscription handling using clean design patterns.
-      </p>
-      <p><strong>Tech:</strong> Python · OPC UA · Docker</p>
-    </div>
   </section>
 
   <!-- SKILLS SECTION -->
@@ -107,26 +89,6 @@
   </footer>
 
   <script>
-  // ----- Scroll reveal -----
-  const reveals = document.querySelectorAll(".reveal");
-
-  const options = {
-    threshold: 0.2
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        // observer.unobserve(entry.target); // if you want it only once
-      }
-    });
-  }, options);
-
-  reveals.forEach(reveal => {
-    observer.observe(reveal);
-  });
-
   // ----- Light / Dark theme toggle -----
   const toggleBtn = document.getElementById("theme-toggle");
   const body = document.body;
@@ -156,6 +118,7 @@
     });
   }
 </script>
+
 
 </body>
 </html>
