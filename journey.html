@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Journey – Aleksandra Karpova</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="index.html#about">About</a>
+  <a href="index.html#projects">Projects</a>
+  <a href="index.html#skills">Skills</a>
+  <a href="blog.html">Blog</a>
+  <a href="journey.html">Journey</a>
+  <a href="cv.pdf" download class="nav-cv">CV</a>
+  <button id="theme-toggle" class="theme-toggle">🌙</button>
+</nav>
+
+<header>
+  <h1>My Journey</h1>
+  <h2>How I became a Software Engineer</h2>
+</header>
+
+<section id="journey" class="reveal">
+  <h3>Timeline</h3>
+
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <h4>2021 — First Steps into Programming</h4>
+      <p>Discovered Python, algorithms, and automation.</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <h4>2022 — Web & Mobile Development</h4>
+      <p>Learned Flask, React, and Flutter. Built small apps and APIs.</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <h4>2023 — Machine Learning & Quantum Computing</h4>
+      <p>Dived into ML models and Qiskit/Pennylane circuit design.</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <h4>2024 — System Architecture & Engineering</h4>
+      <p>Built modular apps, data pipelines, dashboards, and backend systems.</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <h4>2024–2025 — Real-World Industrial Engineering</h4>
+      <p>Worked on ML monitoring, OPC UA adapters, testing, and FastAPI services.</p>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  © 2025 Aleksandra Karpova — Portfolio built with GitHub Pages
+</footer>
+
+<!-- same script as index.html -->
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll(".reveal");
+  function revealNow() {
+    reveals.forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 80) el.classList.add("visible");
+    });
+  }
+  window.addEventListener("scroll", revealNow);
+  window.addEventListener("load", revealNow);
+
+  // Theme toggle
+  const toggleBtn = document.getElementById("theme-toggle");
+  const body = document.body;
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "light") {
+    body.classList.add("light-theme");
+    toggleBtn.textContent = "☀️";
+  }
+  toggleBtn.addEventListener("click", () => {
+    const isLight = body.classList.toggle("light-theme");
+    toggleBtn.textContent = isLight ? "☀️" : "🌙";
+    localStorage.setItem("theme", isLight ? "light" : "dark");
+  });
+</script>
+
+</body>
+</html>
