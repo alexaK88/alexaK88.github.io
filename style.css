@@ -180,18 +180,6 @@ footer {
   font-size: 0.85rem;
 }
 
-/* ---------- SCROLL REVEAL ANIMATIONS ---------- */
-.reveal {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.9s ease-out, transform 0.9s ease-out;
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 /* ---------- THEME TOGGLE BUTTON ---------- */
 .theme-toggle {
   margin-left: 1rem;
@@ -221,7 +209,6 @@ body.light-theme {
   color: #0f172a;
 }
 
-/* Navbar in light mode */
 body.light-theme .navbar {
   background: rgba(255, 255, 255, 0.8);
   border-bottom: 1px solid rgba(148, 163, 184, 0.4);
@@ -300,3 +287,17 @@ body.light-theme .cv-button:hover {
 body.light-theme footer {
   color: #6b7280;
 }
+
+
+/* ---------- SCROLL REVEAL ANIMATIONS ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
