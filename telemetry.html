@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Satellite Telemetry – Aleksandra Karpova</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="index.html#about">About</a>
+    <a href="projects.html" class="nav-active">Projects</a>
+    <a href="index.html#skills">Skills</a>
+    <a href="journey.html">Journey</a>
+    <a href="blog.html">Blog</a>
+    <a href="cv.pdf" download class="nav-cv">CV</a>
+    <button id="theme-toggle" class="theme-toggle" type="button">🌙</button>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <h1 class="hero-title">Satellite Telemetry Processing & Health Monitoring</h1>
+    <h2 class="hero-subtitle">
+      A modular pipeline for ingesting spacecraft telemetry, validating schemas, tracking subsystem health,
+      and visualizing trends & alerts in real time.
+    </h2>
+  </header>
+
+  <!-- QUICK LINKS / CTA -->
+  <section class="reveal">
+    <h3>Quick Links</h3>
+    <div class="card">
+      <p>
+        <a class="cv-button" href="projects.html">← Back to Projects</a>
+        <!-- Replace with your repo URL when you’re ready -->
+        <a class="cv-button" style="margin-left: 0.8rem;" href="https://github.com/alexaK88/SatelliteTelemetry" target="_blank" rel="noopener">GitHub Repo →</a>
+      </p>
+      <p style="margin-top: 0.8rem; color: #94a3b8;">
+        Tip: add a short demo GIF or screenshot below to make this page instantly “wow”.
+      </p>
+    </div>
+  </section>
+
+  <!-- OVERVIEW -->
+  <section class="reveal">
+    <h3>Overview</h3>
+    <div class="card">
+      <p>
+        This project simulates (or integrates with) a spacecraft telemetry stream and builds a complete monitoring flow:
+        telemetry ingestion → validation → transformation → storage → health checks → dashboards/alerts.
+      </p>
+      <p>
+        The focus is on <strong>reliability</strong> (schema enforcement, error handling, observability),
+        <strong>performance</strong> (chunked processing), and <strong>operational usability</strong>
+        (clear health indicators, trends, and diagnostics).
+      </p>
+    </div>
+  </section>
+
+  <!-- PROBLEM / GOALS -->
+  <section class="reveal">
+    <h3>Problem & Goals</h3>
+    <div class="card">
+      <ul>
+        <li><strong>Problem:</strong> Telemetry is high-frequency and noisy. Without strict validation and health logic,
+          issues can be missed (or false alarms become overwhelming).</li>
+        <li><strong>Goal:</strong> Provide a robust pipeline that converts raw telemetry into reliable health insights:
+          thresholds, derived metrics, event flags, and operator-friendly dashboards.</li>
+        <li><strong>Outcome:</strong> A modular system that can be extended with new subsystems, new telemetry fields,
+          and additional health rules with minimal changes.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ARCHITECTURE -->
+  <section class="reveal">
+    <h3>System Architecture</h3>
+    <div class="card">
+      <p>
+        The system is designed as containerized services for separation of concerns and easy local deployment.
+        Typical components:
+      </p>
+      <ul>
+        <li><strong>API Service (FastAPI):</strong> receives telemetry, validates payloads, stores/streams processed outputs.</li>
+        <li><strong>Dashboard (Streamlit):</strong> real-time charts and subsystem health panels.</li>
+        <li><strong>Observability:</strong> metrics endpoints + optional Prometheus/Grafana for system health.</li>
+        <li><strong>Storage:</strong> file-based (CSV/JSON) or pluggable DB layer (optional extension).</li>
+      </ul>
+
+      <p style="margin-top: 0.9rem;">
+        <strong>Deployment:</strong> Docker + Docker Compose (multi-service orchestration).
+      </p>
+
+      <!-- Optional: add an image of architecture diagram -->
+      <div style="margin-top: 1rem; opacity: 0.85;">
+        <p><strong>Screenshot / Diagram placeholder:</strong></p>
+        <p style="color:#94a3b8;">
+          Add <code>images/telemetry-architecture.png</code> and place it here using an &lt;img&gt; tag.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DATA FLOW -->
+  <section class="reveal">
+    <h3>Telemetry Data Flow</h3>
+    <div class="card">
+      <ol>
+        <li><strong>Ingest</strong> telemetry packets/events (HTTP endpoint or simulated generator).</li>
+        <li><strong>Validate</strong> structure and types (schema enforcement, required fields, bounds).</li>
+        <li><strong>Transform</strong> (unit normalization, timestamp alignment, derived features).</li>
+        <li><strong>Health Rules</strong> (thresholds, rate-of-change checks, missing data detection).</li>
+        <li><strong>Persist</strong> processed stream for analysis & replay.</li>
+        <li><strong>Visualize</strong> subsystem panels + time-series trends.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- SCHEMA / VALIDATION -->
+  <section class="reveal">
+    <h3>Schema & Validation</h3>
+    <div class="card">
+      <p>
+        Telemetry processing starts with strict schema validation to prevent silent failures and to keep downstream logic reliable.
+      </p>
+      <ul>
+        <li><strong>Typed payloads</strong> (e.g., Pydantic models) for consistent decoding.</li>
+        <li><strong>Constraints</strong> (range checks, enumerations, required fields).</li>
+        <li><strong>Error reporting</strong> (invalid packets are rejected or quarantined, with clear logs/metrics).</li>
+      </ul>
+
+      <p style="margin-top: 0.9rem;">
+        <strong>Example fields</strong> you might include:
+        timestamps, subsystem voltages/currents, temperatures, link status, memory usage, CPU load, attitude/orbit values, etc.
+      </p>
+    </div>
+  </section>
+
+  <!-- HEALTH MONITORING -->
+  <section class="reveal">
+    <h3>Health Monitoring Logic</h3>
+    <div class="card">
+      <p>
+        Health monitoring converts raw telemetry into actionable signals:
+      </p>
+      <ul>
+        <li><strong>Threshold checks:</strong> warn/critical limits per sensor (e.g., temperature, voltage).</li>
+        <li><strong>Trend checks:</strong> detect drift (rate of change) and instability (spikes).</li>
+        <li><strong>Missing data detection:</strong> identify stale sensors or transmission gaps.</li>
+        <li><strong>Derived metrics:</strong> rolling averages, deltas, composite “health score”.</li>
+        <li><strong>Event stream:</strong> emit health events for dashboards and alerting.</li>
+      </ul>
+      <p style="margin-top: 0.9rem; color:#94a3b8;">
+        (Optional upgrade) Add hysteresis + debounce to reduce alert flapping.
+      </p>
+    </div>
+  </section>
+
+  <!-- DASHBOARD -->
+  <section class="reveal">
+    <h3>Dashboard & Operator View</h3>
+    <div class="card">
+      <ul>
+        <li><strong>Subsystem health panels</strong> (OK / Warning / Critical + details).</li>
+        <li><strong>Time-series charts</strong> for key sensors and derived metrics.</li>
+        <li><strong>Event timeline</strong> for alerts and anomalies.</li>
+        <li><strong>Filters</strong> by subsystem, sensor, time window.</li>
+      </ul>
+
+      <div style="margin-top: 1rem; opacity: 0.85;">
+        <p><strong>Screenshot placeholder:</strong></p>
+        <p style="color:#94a3b8;">
+          Add <code>images/telemetry-dashboard.png</code> and embed it here to show the UI.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBSERVABILITY -->
+  <section class="reveal">
+    <h3>Observability</h3>
+    <div class="card">
+      <p>
+        Besides spacecraft health, the system tracks its own health and performance:
+      </p>
+      <ul>
+        <li>Request rate, success/failure counts</li>
+        <li>Processing latency (ingest → validated → stored)</li>
+        <li>CPU/memory usage (service-level)</li>
+        <li>Error categories (validation vs runtime)</li>
+      </ul>
+      <p style="margin-top: 0.9rem;">
+        This makes the pipeline production-like and easier to debug under real streaming conditions.
+      </p>
+    </div>
+  </section>
+
+  <!-- TECH STACK -->
+  <section class="reveal">
+    <h3>Tech Stack</h3>
+    <div class="card">
+      <ul>
+        <li><strong>Backend:</strong> Python, FastAPI, Pydantic</li>
+        <li><strong>Data:</strong> Pandas (processing), file-based storage (CSV/JSON) or pluggable DB</li>
+        <li><strong>Frontend:</strong> Streamlit dashboards</li>
+        <li><strong>DevOps:</strong> Docker, Docker Compose</li>
+        <li><strong>Monitoring (optional):</strong> Prometheus, Grafana</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- WHAT I’D IMPROVE -->
+  <section class="reveal">
+    <h3>Future Improvements</h3>
+    <div class="card">
+      <ul>
+        <li>Streaming transport: WebSockets / MQTT / Kafka for higher-throughput ingestion</li>
+        <li>Rule engine: declarative health rules (YAML/JSON) per subsystem</li>
+        <li>Alerting: alert routing (email/Slack) + suppression/hysteresis</li>
+        <li>Replay mode: re-run historical telemetry for analysis and testing</li>
+        <li>ML layer: anomaly detection and predictive maintenance signals</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Aleksandra Karpova — Portfolio built with GitHub Pages
+  </footer>
+
+  <!-- SCRIPT: scroll reveal + theme toggle -->
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll(".reveal");
+    function revealNow() {
+      reveals.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 80) el.classList.add("visible");
+      });
+    }
+    window.addEventListener("scroll", revealNow);
+    window.addEventListener("load", revealNow);
+
+    // Theme toggle
+    const toggleBtn = document.getElementById("theme-toggle");
+    const body = document.body;
+    const savedTheme = localStorage.getItem("theme");
+
+    if (savedTheme === "light") {
+      body.classList.add("light-theme");
+      if (toggleBtn) toggleBtn.textContent = "☀️";
+    } else {
+      if (toggleBtn) toggleBtn.textContent = "🌙";
+    }
+
+    if (toggleBtn) {
+      toggleBtn.addEventListener("click", () => {
+        const isLight = body.classList.toggle("light-theme");
+        toggleBtn.textContent = isLight ? "☀️" : "🌙";
+        localStorage.setItem("theme", isLight ? "light" : "dark");
+      });
+    }
+  </script>
+
+</body>
+</html>
