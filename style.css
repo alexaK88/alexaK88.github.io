@@ -527,5 +527,42 @@ body.light-theme .flashcard-content p {
   color: #475569;
 }
 
+/* ---------- PROJECT IMAGES ---------- */
+.project-figure {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.project-figure img {
+  width: 100%;
+  max-width: 720px;      
+  height: auto;
+  border-radius: 0.8rem;
+  border: 1px solid rgba(56, 234, 255, 0.4);
+  box-shadow: 0 0 24px rgba(56, 234, 255, 0.25);
+  margin: 0 auto;      
+  display: block;
+}
+
+.project-figure figcaption {
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Light theme */
+body.light-theme .project-figure img {
+  border-color: rgba(148, 163, 184, 0.4);
+  box-shadow: 0 0 18px rgba(15, 23, 42, 0.15);
+}
+
+body.light-theme .project-figure figcaption {
+  color: #6b7280;
+}
+
+
 }
 
