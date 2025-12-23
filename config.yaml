@@ -1,0 +1,9 @@
+title: Aleksandra
+description: Travel, photography, and writing
+theme: minimal-mistakes-jekyll
+
+minimal_mistakes_skin: "air"
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
