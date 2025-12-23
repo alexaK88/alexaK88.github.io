@@ -563,6 +563,17 @@ body.light-theme .project-figure figcaption {
   color: #6b7280;
 }
 
+.essay-post {
+  max-width: 680px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  line-height: 1.75;
+}
+
+.travel-post img {
+  margin: 2rem 0;
+}
+
 
 }
 
