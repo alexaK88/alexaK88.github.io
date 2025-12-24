@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NASA Power of 10 Rules</title>
+
+  <!-- Main site styles -->
+  <link rel="stylesheet" href="../style.css">
+
+  <!-- Optional: code font -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+
+  <style>
+    .blog-container {
+      max-width: 900px;
+      margin: 8rem auto 4rem;
+      padding: 0 1.5rem;
+    }
+
+    .blog-container h1 {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 12px rgba(0,255,255,0.4);
+    }
+
+    .blog-container .subtitle {
+      text-align: center;
+      color: #aaa;
+      margin-bottom: 3rem;
+    }
+
+    .blog-container h2 {
+      margin-top: 3rem;
+      color: var(--accent);
+    }
+
+    .blog-container p {
+      line-height: 1.7;
+      margin-top: 1rem;
+    }
+
+    pre {
+      background: #0c0f14;
+      border: 1px solid rgba(0,255,255,0.2);
+      border-radius: 12px;
+      padding: 1rem;
+      overflow-x: auto;
+      margin-top: 1rem;
+      box-shadow: inset 0 0 15px rgba(0,255,255,0.08);
+    }
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      color: #9efeff;
+    }
+
+    .callout {
+      margin: 2.5rem 0;
+      padding: 1.5rem;
+      border-left: 4px solid var(--accent);
+      background: rgba(0,255,255,0.05);
+      border-radius: 8px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 4rem;
+      color: var(--accent);
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="../index.html">Home</a>
+    <a href="../projects.html">Projects</a>
+    <a href="../blog.html">Blog</a>
+  </nav>
+
+  <main class="blog-container">
+
+    <h1>NASA’s Power of 10 Rules</h1>
+    <p class="subtitle">
+      Writing software that must work — every time.
+    </p>
+
+    <p>
+      When software controls spacecraft, power systems, or industrial machinery,
+      failure is not an option. To reduce catastrophic risk, NASA’s Jet Propulsion
+      Laboratory introduced the <strong>Power of 10 Rules</strong> — a set of
+      constraints designed to make software predictable, verifiable, and safe.
+    </p>
+
+    <div class="callout">
+      These rules originated in embedded C, but the philosophy applies equally
+      to modern Python services, ML pipelines, and distributed systems.
+    </div>
+
+    <!-- RULE 1 -->
+    <h2>1️⃣ No Dynamic Memory Allocation After Initialization</h2>
+    <p>
+      Dynamic memory can fail at runtime and fragment memory. NASA requires all
+      memory to be allocated once, up front.
+    </p>
+
+    <h3>❌ Python (risky)</h3>
+    <pre><code>
+def process(data):
+    buffer = []
+    for x in data:
+        buffer.append(x * 2)
+    return buffer
+    </code></pre>
+
+    <h3>✅ Python (bounded & predictable)</h3>
+    <pre><code>
+MAX_ITEMS = 100
+
+def process(data):
+    buffer = [0] * MAX_ITEMS
+    for i, x in enumerate(data[:MAX_ITEMS]):
+        buffer[i] = x * 2
+    return buffer
+    </code></pre>
+
+    <h3>✅ C++ (pre-allocated)</h3>
+    <pre><code>
+constexpr int MAX_ITEMS = 100;
+int buffer[MAX_ITEMS];
+
+void process(const int* data, int length) {
+    for (int i = 0; i < length && i < MAX_ITEMS; i++) {
+        buffer[i] = data[i] * 2;
+    }
+}
+    </code></pre>
+
+    <!-- RULE 3 -->
+    <h2>3️⃣ All Loops Must Have Fixed Upper Bounds</h2>
+    <p>
+      Infinite or data-dependent loops are unacceptable in safety-critical systems.
+      Worst-case execution time must always be known.
+    </p>
+
+    <h3>❌ Dangerous loop</h3>
+    <pre><code>
+while sensor.is_active():
+    read_sensor()
+    </code></pre>
+
+    <h3>✅ Bounded loop</h3>
+    <pre><code>
+MAX_READS = 50
+
+for _ in range(MAX_READS):
+    if not sensor.is_active():
+        break
+    read_sensor()
+    </code></pre>
+
+    <h3>✅ C++ equivalent</h3>
+    <pre><code>
+for (int i = 0; i < 50; i++) {
+    if (!sensor_active()) break;
+    read_sensor();
+}
+    </code></pre>
+
+    <!-- RULE 7 -->
+    <h2>7️⃣ Always Check Return Values</h2>
+    <p>
+      Ignoring return values hides failure. Every operation must be verified.
+    </p>
+
+    <h3>❌ Ignored error</h3>
+    <pre><code>
+send_packet(packet)
+    </code></pre>
+
+    <h3>✅ Explicit handling</h3>
+    <pre><code>
+status = send_packet(packet)
+if status != OK:
+    log_error(status)
+    shutdown_system()
+    </code></pre>
+
+    <h3>✅ C++</h3>
+    <pre><code>
+Status status = send_packet(packet);
+if (status != OK) {
+    log_error(status);
+    shutdown_system();
+}
+    </code></pre>
+
+    <!-- FINAL -->
+    <h2>Why These Rules Still Matter</h2>
+    <p>
+      Whether you're building spacecraft software, telemetry pipelines,
+      or ML-backed monitoring systems, the lesson is the same:
+    </p>
+
+    <div class="callout">
+      <strong>Predictability beats cleverness.</strong><br>
+      If you can’t reason about failure, you can’t trust the system.
+    </div>
+
+    <p>
+      NASA’s Power of 10 Rules are not about writing less powerful software —
+      they’re about writing software that survives the real world.
+    </p>
+
+    <a class="back-link" href="../blog.html">← Back to Blog</a>
+
+  </main>
+
+  <footer>
+    © 2025 Aleksandra Karpova
+  </footer>
+
+</body>
+</html>
