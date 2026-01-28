@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>12-Factor App Methodology</title>
+
+  <!-- Main site styles -->
+  <link rel="stylesheet" href="../style.css">
+
+  <!-- Optional: code font -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+
+  <style>
+    .blog-container {
+      max-width: 900px;
+      margin: 8rem auto 4rem;
+      padding: 0 1.5rem;
+    }
+
+    .blog-container h1 {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 12px rgba(0,255,255,0.4);
+    }
+
+    .blog-container .subtitle {
+      text-align: center;
+      color: #aaa;
+      margin-bottom: 3rem;
+    }
+
+    .blog-container h2 {
+      margin-top: 3rem;
+      color: var(--accent);
+    }
+
+    .blog-container p {
+      line-height: 1.7;
+      margin-top: 1rem;
+    }
+
+    .callout {
+      margin: 2.5rem 0;
+      padding: 1.5rem;
+      border-left: 4px solid var(--accent);
+      background: rgba(0,255,255,0.05);
+      border-radius: 8px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 4rem;
+      color: var(--accent);
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="../index.html">Home</a>
+    <a href="../projects.html">Projects</a>
+    <a href="../blog.html">Blog</a>
+  </nav>
+
+  <main class="blog-container">
+
+    <h1>12-Factor App Methodology</h1>
+    <p class="subtitle">
+      Building apps that are reliable, maintainable, and scalable.
+    </p>
+
+    <p>
+      When I first started thinking seriously about building an app—and eventually opening a company—I had a lot of questions:  
+      <em>How do you build a “cool” app without it turning into a chaotic mess? What are the best practices to make something that not only works, but works well and lasts?</em>
+    </p>
+
+    <p>
+      That’s when I discovered the <strong>12-factor app methodology</strong>, created by Adam Wiggins and the Heroku team.  
+      It’s a set of principles for building apps that are clean, maintainable, and scalable. Honestly, it’s a lifesaver if you want to avoid pulling your hair out later.
+    </p>
+
+    <div class="callout">
+      Following these principles doesn’t mean your app will never run into problems, but it makes life a lot easier.
+    </div>
+
+    <h2>1️⃣ Codebase</h2>
+    <p>
+      One app, one codebase, many deploys. Keep all your code in a single repository under version control (like Git). Managing everything in one place is easier than juggling multiple disconnected repos.
+    </p>
+
+    <h2>2️⃣ Dependencies</h2>
+    <p>
+      Always declare them. Don’t rely on what’s installed on your system. Use a manifest file with names and versions so future-you (or other engineers) can reproduce the environment easily.
+    </p>
+
+    <h2>3️⃣ Config</h2>
+    <p>
+      Keep configuration separate from code. Store credentials, API keys, database URLs in the environment rather than in your repository. This allows your app to adapt to different deployments without changing the code.
+    </p>
+
+    <h2>4️⃣ Backing Services</h2>
+    <p>
+      Treat external services like databases, queues, or caches as replaceable resources. Your app should be able to attach or detach them without breaking anything.
+    </p>
+
+    <h2>5️⃣ Build, Release, Run</h2>
+    <p>
+      Follow the pipeline: build your app, release it with proper config, then run it. Simple, but it prevents many headaches later.
+    </p>
+
+    <h2>6️⃣ Processes</h2>
+    <p>
+      Run your app as stateless processes. Any data that needs to persist goes into a backing service, which makes scaling and recovery easier.
+    </p>
+
+    <h2>7️⃣ Port Binding</h2>
+    <p>
+      Make your app self-contained. Expose it via a port rather than relying on an external web server.
+    </p>
+
+    <h2>8️⃣ Concurrency</h2>
+    <p>
+      Scale horizontally by running multiple process instances instead of building one giant monolith. A smarter way to handle growing traffic.
+    </p>
+
+    <h2>9️⃣ Disposability</h2>
+    <p>
+      Processes should start and stop quickly. Fast startup and graceful shutdown make your app resilient and less likely to crash under pressure.
+    </p>
+
+    <h2>🔟 Dev/Prod Parity</h2>
+    <p>
+      Keep development, staging, and production environments as similar as possible. Fewer surprises when you deploy.
+    </p>
+
+    <h2>1️⃣1️⃣ Logs</h2>
+    <p>
+      Treat logs as streams of events. Don’t store them inside your app—let the environment handle them. Logs are your window into real-world app behavior.
+    </p>
+
+    <h2>1️⃣2️⃣ Admin Processes</h2>
+    <p>
+      Administrative tasks like migrations or maintenance scripts should live in your codebase and run in the same environment as your app. This simplifies troubleshooting when something breaks.
+    </p>
+
+    <div class="callout">
+      Focus on three things: <strong>reliability, scalability, and maintainability.</strong>  
+      The 12-factor methodology provides a roadmap to achieve all three.
+    </div>
+
+    <p>
+      Even keeping these principles in mind changes how you approach problem-solving and project structure. You don’t need to follow them religiously from day one, but understanding them will save you countless headaches later.
+    </p>
+
+    <a class="back-link" href="../blog.html">← Back to Blog</a>
+
+  </main>
+
+  <footer>
+    © 2025 Aleksandra Karpova
+  </footer>
+
+</body>
+</html>
