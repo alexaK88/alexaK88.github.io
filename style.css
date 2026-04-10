@@ -140,6 +140,11 @@ html {
   animation: subtitleIn 1.2s ease-out forwards 0.4s;
 }
 
+p {
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
 /* Light theme adjustments */
 body.light-theme .hero::after {
   background: radial-gradient(circle at top, #f9fafb, #e5f2ff);
