@@ -145,6 +145,11 @@ p {
   line-height: 1.6;
 }
 
+div {
+  margin-bottom: 20 px;
+  line-height: 1.7;
+}
+
 /* Light theme adjustments */
 body.light-theme .hero::after {
   background: radial-gradient(circle at top, #f9fafb, #e5f2ff);
