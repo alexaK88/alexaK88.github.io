@@ -16,47 +16,116 @@
 
   <!-- NAVBAR -->
   <nav class="navbar">
-    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
     <a href="#skills">Skills</a>
-    <a href="projects.html">Projects</a>
-    <a href="#experience">Work Experience</a>
+    <a href="#about">About</a>
     <a href="journey.html">Journey</a>
     <a href="blog.html">Blog</a>
     <a href="#contact">Contact</a>
     <a href="cv.pdf" download class="nav-cv">CV</a>
-    <button id="theme-toggle" class="theme-toggle" type="button">🌙</button>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme">🌙</button>
   </nav>
 
   <!-- HERO / INTRO SECTION -->
   <header class="hero">
+    <p class="hero-eyebrow">Software Engineering · Industrial Data · Backend Systems · Machine Learning · Quantum Information</p>
+  
     <h1 class="hero-title">Aleksandra Karpova</h1>
-    <h2 class="hero-subtitle">
-    <p>Software Engineer with experience in industrial systems, machine learning, and backend architecture. </p>
-    <p>Focused on building scalable, data-driven solutions that bridge engineering and intelligent systems.</p>
-    </h2>
+  
+    <p class="hero-subtitle">
+      I build backend systems, data pipelines, and ML-powered monitoring tools for real-time engineering and industrial data.
+    </p>
+  
+    <p class="hero-summary">
+      My work focuses on turning sensor data, process signals, and model outputs into reliable software components for monitoring, automation, and decision support.
+    </p>
+  
+    <div class="hero-actions">
+      <a href="#projects" class="cv-button">View projects</a>
+      <a href="cv.pdf" download class="cv-button secondary-button">Download CV</a>
+    </div>
   </header>
+
+  <section id="projects" class="reveal">
+    <h3>Featured Projects</h3>
+  
+    <div class="project-grid">
+      <article class="project-card">
+        <p class="project-label">Industrial systems · ML · Dashboards</p>
+        <h4>Real-Time Mill Monitoring</h4>
+        <p>
+          End-to-end monitoring pipeline for industrial mill data, combining simulated live sensor streams, ML regressors, and dashboards for process visibility.
+        </p>
+        <div class="project-tags">
+          <span>FastAPI</span>
+          <span>Pandas</span>
+          <span>Scikit-learn</span>
+          <span>Streamlit</span>
+        </div>
+        <a href="mill-monitoring.html">View case study →</a>
+      </article>
+  
+      <article class="project-card">
+        <p class="project-label">Backend architecture · Industrial protocols</p>
+        <h4>OPC UA Adapter</h4>
+        <p>
+          Cross-platform communication adapter for OPC UA/OPC DA workflows, designed around clean interfaces, backend abstraction, and testable architecture.
+        </p>
+        <div class="project-tags">
+          <span>Python</span>
+          <span>OPC UA</span>
+          <span>Docker</span>
+          <span>Testing</span>
+        </div>
+        <a href="opcua.html">View case study →</a>
+      </article>
+      <article class="project-card">
+        <p class="project-label">Telemetry · Observability · APIs</p>
+        <h4>Satellite Monitoring System</h4>
+        <p>
+          Modular telemetry ingestion and monitoring system inspired by spacecraft ground-segment software, with validation, storage, health checks, and dashboard concepts.
+        </p>
+        <div class="project-tags">
+          <span>FastAPI</span>
+          <span>Telemetry</span>
+          <span>Grafana</span>
+          <span>Prometheus</span>
+        </div>
+        <a href="telemetry.html">View case study →</a>
+      </article>
+  
+      <article class="project-card">
+        <p class="project-label">Machine learning · Classification</p>
+        <h4>Cyclone Classification</h4>
+        <p>
+          ML project for predicting cyclone intensity classes using structured preprocessing, supervised models, and evaluation metrics such as precision, recall, F1-score, and confusion matrices.
+        </p>
+        <div class="project-tags">
+          <span>Python</span>
+          <span>Scikit-learn</span>
+          <span>Classification</span>
+          <span>Evaluation</span>
+        </div>
+        <a href="cyclones.html">View case study →</a>
+      </article>
+    </div>
+  </section>
 
   <!-- ABOUT SECTION -->
   <section id="about" class="reveal">
     <h3>About Me</h3>
     <div class="card">
       <p>
-        I am a software engineer focused on building real-time data systems, machine learning pipelines, 
-        and scalable backend architectures. My work sits at the intersection of software engineering 
-        and intelligent systems, where I design solutions that process data, make predictions, and 
-        support decision-making in complex environments.
+        I am a software engineer focused on backend systems, real-time data pipelines, and machine learning workflows. My main work is in industrial software, where raw process data needs to become reliable, usable information for monitoring and decision-making.
       </p>
       
       <p>
-        I have experience developing industrial monitoring systems, integrating machine learning models 
-        into production workflows, and working with technologies such as FastAPI, OPC UA, and modern 
-        data processing tools. I am particularly interested in systems that combine data, automation, 
-        and intelligent behaviour.
+        I have worked with FastAPI, OPC UA, Pandas, Streamlit, Grafana, Prometheus, Docker, and ML models for process monitoring and prediction. I enjoy building systems that are not only technically interesting, but also useful in messy real-world environments.
       </p>
       
       <p>
-        Currently, I am exploring quantum machine learning and advanced data-driven approaches, 
-        with a focus on building efficient and scalable solutions to challenging real-world problems.
+        Alongside industrial software, I am also exploring quantum computing and quantum machine learning with Qiskit and PennyLane, especially where software engineering, modelling, and scientific computing overlap.
       </p>
     </div>
   </section>
@@ -68,17 +137,26 @@
     <div class="card">
       <div class="skills-list">
         <div class="skill">Python</div>
-        <div class="skill">Java</div>
-        <div class="skill">C#</div>
-        <div class="skill">Dart & Flutter</div>
-        <div class="skill">Machine Learning</div>
-        <div class="skill">Machine Learning (Scikit-Learn, PyTorch, TensorFlow)</div>
-        <div class="skill">Data Processing (Pandas, NumPy)</div>
-        <div class="skill">Qiskit, Pennylane</div>
-        <div class="skill">React, Flask, REST APIs, FastAPI, Streamlit</div>
+        <div class="skill">FastAPI</div>
+        <div class="skill">Flask</div>
+        <div class="skill">Pandas</div>
+        <div class="skill">NumPy</div>
+        <div class="skill">Scikit-learn</div>
+        <div class="skill">PyTorch</div>
+        <div class="skill">TensorFlow</div>
+        <div class="skill">OPC UA</div>
         <div class="skill">Docker</div>
         <div class="skill">Git</div>
-        <div class="skill">Grafana, Prometheus</div>
+        <div class="skill">Grafana</div>
+        <div class="skill">Prometheus</div>
+        <div class="skill">Streamlit</div>
+        <div class="skill">REST APIs</div>
+        <div class="skill">Java</div>
+        <div class="skill">C#</div>
+        <div class="skill">Flutter</div>
+        <div class="skill">React</div>
+        <div class="skill">Qiskit</div>
+        <div class="skill">PennyLane</div>
       </div>
     </div>
   </section>
@@ -162,49 +240,40 @@
     <h4>Software Engineer</h4>
     <p><strong>OPTECS BV</strong> · February 2025 - Present</p>
     <ul>
-      <li>Designed and built a real-time data ingestion pipeline for industrial mill sensor data using FastAPI and Pandas.</li>
-      <li>Developed a machine learning model (XGBoost, SGDRegressor) to predict total mill power usage based on bearing pressures and motor speeds.</li>
-      <li>Implemented a modular monitoring system simulating real-time equipment performance, enabling proactive maintenance insights.</li>
-      <li>Created interactive dashboards with Streamlit and Plotly to visualize sensor data, model predictions, and system performance.</li>
-      <li>Refactored legacy OPC UA and OPCDA communication modules into a cross-platform adapter using Strategy and Factory patterns.</li>
-      <li>Wrote unit tests for OPC UA node browsing, subscriptions, and value reading using a Dockerized test server.</li>
+      <li>Build backend components for industrial monitoring and control systems using Python, FastAPI, data pipelines, and modular service logic.</li>
+      <li>Develop preprocessing and data-processing workflows for real-time sensor and process data used in mining/industrial environments.</li>
+      <li>Integrate machine learning models into production-style workflows for predictive monitoring and process insight.</li>
+      <li>Work with OPC UA communication, node browsing, subscriptions, and test environments for industrial data exchange.</li>
+      <li>Create dashboards and monitoring views using tools such as Streamlit, Grafana, Prometheus, and Plotly.</li>
     </ul>
-    <p><strong>Key Achievements:</strong></p>
+
+    <p><strong>Selected impact:</strong></p>
     <ul>
-      <li>Reduced model update latency by 40% through optimized data chunking and incremental training.</li>
-      <li>Increased system maintainability via clean architecture, dependency inversion, and detailed documentation.</li>
-      <li>Delivered a complete end-to-end ML monitoring pipeline used internally for engineering process training.</li>
+      <li>Refactored communication logic into cleaner, more maintainable modules using architecture patterns such as Strategy and Factory.</li>
+      <li>Improved internal testing and validation around industrial data workflows using Dockerized test environments.</li>
+      <li>Contributed to end-to-end ML monitoring workflows for engineering process analysis and training.</li>
     </ul>
   </div>
 
-  <div class="card">
+  <div class="card experience-card">
     <h4>Freelance Software Developer</h4>
     <p><strong>Independent</strong> · 2022 – 2024</p>
+
     <ul>
-      <li>Built custom backend services using Python, Flask, and FastAPI for small business automation workflows.</li>
-      <li>Developed mobile and desktop apps using Flutter and React for appointment scheduling and inventory tracking.</li>
-      <li>Integrated external APIs and implemented secure authentication flows with OAuth2 and JWT.</li>
-      <li>Designed SQL and NoSQL data models for fast, scalable storage.</li>
-    </ul>
-    <p><strong>Key Achievements:</strong></p>
-    <ul>
-      <li>Shipped 10+ client projects with 100% delivery satisfaction.</li>
-      <li>Reduced manual workload for clients by automating repetitive business processes.</li>
+      <li>Built small business automation tools, backend services, and web/mobile applications using Python, Flask, FastAPI, Flutter, and React.</li>
+      <li>Designed API integrations, authentication flows, and database-backed features for practical client workflows.</li>
+      <li>Translated client requirements into working software with simple interfaces and maintainable project structure.</li>
     </ul>
   </div>
-  <div class="card">
-    <h4>Data Science Internship</h4>
+
+  <div class="card experience-card">
+    <h4>Data Science Intern</h4>
     <p><strong>SAS</strong> · 2022 – 2024</p>
+
     <ul>
-      <li>Built custom backend services using Python, Flask, and FastAPI for small business automation workflows.</li>
-      <li>Developed mobile and desktop apps using Flutter and React for appointment scheduling and inventory tracking.</li>
-      <li>Integrated external APIs and implemented secure authentication flows with OAuth2 and JWT.</li>
-      <li>Designed SQL and NoSQL data models for fast, scalable storage.</li>
-    </ul>
-    <p><strong>Key Achievements:</strong></p>
-    <ul>
-      <li>Shipped 10+ client projects with 100% delivery satisfaction.</li>
-      <li>Reduced manual workload for clients by automating repetitive business processes.</li>
+      <li>Worked with data analysis workflows, reporting concepts, and analytical tools in a professional data science environment.</li>
+      <li>Strengthened foundations in statistics, machine learning concepts, data preparation, and interpretation of analytical results.</li>
+      <li>Gained experience connecting technical outputs with business-facing explanations and decision-making contexts.</li>
     </ul>
   </div>
 </section>
