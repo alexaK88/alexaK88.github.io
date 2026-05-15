@@ -145,9 +145,6 @@ p {
   line-height: 1.6;
 }
 
-div {
-  line-height: 1.7;
-}
 
 /* Light theme adjustments */
 body.light-theme .hero::after {
@@ -520,7 +517,7 @@ body.light-theme footer {
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
-
+}
 /* ---------- TECH STACK GRID ---------- */
 .tech-grid {
   display: grid;
