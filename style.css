@@ -828,6 +828,9 @@ body.light-theme .solution-card pre {
   color: #0f172a;
 }
 
-
+.difficulty.easy {
+  background: rgba(34, 197, 94, 0.12);
+  color: #bbf7d0;
+  border: 1px solid rgba(34, 197, 94, 0.25);
 }
 
