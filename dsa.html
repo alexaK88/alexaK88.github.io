@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Algorithms & Problem Solving | Aleksandra Karpova</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <a href="index.html#projects">Projects</a>
+    <a href="index.html#experience">Experience</a>
+    <a href="index.html#skills">Skills</a>
+    <a href="index.html#about">About</a>
+    <a href="journey.html">Journey</a>
+    <a href="blog.html">Blog</a>
+    <a href="index.html#contact">Contact</a>
+    <a href="cv.pdf" download class="nav-cv">CV</a>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme">🌙</button>
+  </nav>
+
+  <main class="page-shell">
+    <header class="section-block dsa-hero">
+      <p class="section-kicker">Interview preparation</p>
+      <h1>Algorithms & Problem Solving</h1>
+      <p>
+        Selected data-structure and algorithm problems solved as part of my software engineering interview preparation. Each note focuses on the pattern, intuition, implementation, and complexity.
+      </p>
+    </header>
+
+    <section class="section-block">
+      <div class="section-header">
+        <p class="section-kicker">Problem patterns</p>
+        <h2>Study Areas</h2>
+        <p>
+          I organise solutions by pattern rather than by random problem order, because recognising the pattern is usually the hardest part.
+        </p>
+      </div>
+
+      <div class="dsa-pattern-grid">
+        <a href="#arrays-hashing" class="dsa-pattern-card">Arrays & Hashing</a>
+        <a href="#two-pointers" class="dsa-pattern-card">Two Pointers</a>
+        <a href="#sliding-window" class="dsa-pattern-card">Sliding Window</a>
+        <a href="#stack" class="dsa-pattern-card">Stack</a>
+        <a href="#binary-search" class="dsa-pattern-card">Binary Search</a>
+        <a href="#trees" class="dsa-pattern-card">Trees</a>
+        <a href="#graphs" class="dsa-pattern-card">Graphs</a>
+        <a href="#dynamic-programming" class="dsa-pattern-card">Dynamic Programming</a>
+      </div>
+    </section>
+
+    <section id="arrays-hashing" class="section-block">
+      <div class="section-header">
+        <p class="section-kicker">Arrays & Hashing</p>
+        <h2>Selected Problems</h2>
+      </div>
+
+      <article class="solution-card">
+        <div class="solution-header">
+          <div>
+            <p class="solution-number">560</p>
+            <h3>Subarray Sum Equals K</h3>
+          </div>
+          <span class="difficulty medium">Medium</span>
+        </div>
+
+        <p><strong>Pattern:</strong> Prefix sum + hash map.</p>
+
+        <p>
+          The key idea is that a subarray sum can be found by subtracting two prefix sums. While scanning the array, I store how many times each prefix sum has appeared. If <code>current_sum - k</code> appeared before, then there is a subarray ending at the current index with sum <code>k</code>.
+        </p>
+
+        <p><strong>Complexity:</strong> O(n) time, O(n) space.</p>
+
+        <pre><code>from collections import defaultdict
+
+class Solution:
+    def subarraySum(self, nums: list[int], k: int) -> int:
+        prefix_count = defaultdict(int)
+        prefix_count[0] = 1
+
+        current_sum = 0
+        result = 0
+
+        for num in nums:
+            current_sum += num
+            result += prefix_count[current_sum - k]
+            prefix_count[current_sum] += 1
+
+        return result
+
+</code></pre>
+
+        <p>
+          <strong>What I learned:</strong> This problem looks like a normal nested-loop subarray problem, but the real trick is representing each subarray as the difference between two prefix sums.
+        </p>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Aleksandra Karpova</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+      
