@@ -724,6 +724,109 @@ body.light-theme .project-figure figcaption {
   margin-bottom: 0.2rem;
 }
 
+/* ---------- DSA / ALGORITHMS PAGE ---------- */
+
+.dsa-hero h1 {
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+
+.dsa-hero p:not(.section-kicker) {
+  max-width: 760px;
+  color: var(--muted, #9fb0c7);
+}
+
+.dsa-pattern-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.85rem;
+}
+
+.dsa-pattern-card {
+  padding: 1rem;
+  border-radius: 16px;
+  background: rgba(2, 6, 23, 0.45);
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  color: #e5edf8;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.dsa-pattern-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(56, 234, 255, 0.45);
+  text-decoration: none;
+}
+
+.solution-card {
+  padding: 1.5rem;
+  border-radius: 20px;
+  background: rgba(2, 6, 23, 0.45);
+  border: 1px solid rgba(148, 163, 184, 0.22);
+}
+
+.solution-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.solution-number {
+  color: var(--accent, #38eaff);
+  font-weight: 900;
+  margin-bottom: 0.2rem;
+}
+
+.solution-card h3 {
+  color: #f8fafc;
+  font-size: 1.4rem;
+}
+
+.difficulty {
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.difficulty.medium {
+  background: rgba(234, 179, 8, 0.12);
+  color: #fde68a;
+  border: 1px solid rgba(234, 179, 8, 0.25);
+}
+
+.solution-card pre {
+  overflow-x: auto;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 14px;
+  background: #020617;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.solution-card code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.9rem;
+}
+
+body.light-theme .dsa-pattern-card,
+body.light-theme .solution-card {
+  background: rgba(255, 255, 255, 0.86);
+  color: #0f172a;
+  border-color: rgba(100, 116, 139, 0.22);
+}
+
+body.light-theme .solution-card h3 {
+  color: #0f172a;
+}
+
+body.light-theme .solution-card pre {
+  background: #f8fafc;
+  color: #0f172a;
+}
 
 
 }
