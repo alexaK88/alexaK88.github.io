@@ -58,43 +58,49 @@
       <article class="solution-card">
         <div class="solution-header">
           <div>
-            <p class="solution-number">560</p>
-            <h3>Subarray Sum Equals K</h3>
+            <p class="solution-number">1</p>
+            <h3>Two Sum</h3>
           </div>
-          <span class="difficulty medium">Medium</span>
+          <span class="difficulty easy">Easy</span>
         </div>
-
-        <p><strong>Pattern:</strong> Prefix sum + hash map.</p>
-
+      
+        <p><strong>Pattern:</strong> Hash map / complement lookup.</p>
+      
         <p>
-          The key idea is that a subarray sum can be found by subtracting two prefix sums. While scanning the array, I store how many times each prefix sum has appeared. If <code>current_sum - k</code> appeared before, then there is a subarray ending at the current index with sum <code>k</code>.
+          The simple way would be to check every pair of numbers, but that would be slow.
+          Instead, I keep a hash map of numbers I have already seen. For each number, I calculate
+          the value needed to reach the target. If that needed value is already in the hash map,
+          I found the answer.
         </p>
-
-        <p><strong>Complexity:</strong> O(n) time, O(n) space.</p>
-
-        <pre><code>from collections import defaultdict
-
-class Solution:
-    def subarraySum(self, nums: list[int], k: int) -> int:
-        prefix_count = defaultdict(int)
-        prefix_count[0] = 1
-
-        current_sum = 0
-        result = 0
-
-        for num in nums:
-            current_sum += num
-            result += prefix_count[current_sum - k]
-            prefix_count[current_sum] += 1
-
-        return result
-
-</code></pre>
-
+      
         <p>
-          <strong>What I learned:</strong> This problem looks like a normal nested-loop subarray problem, but the real trick is representing each subarray as the difference between two prefix sums.
+          For example, if the target is <code>9</code> and the current number is <code>2</code>,
+          I need <code>7</code>. So I check whether <code>7</code> was already seen.
+        </p>
+      
+        <p><strong>Complexity:</strong> O(n) time, O(n) space.</p>
+      
+        <pre><code>class Solution:
+          def twoSum(self, nums: list[int], target: int) -> list[int]:
+              seen = {}
+      
+              for i, num in enumerate(nums):
+                  complement = target - num
+      
+                  if complement in seen:
+                      return [seen[complement], i]
+      
+                  seen[num] = i
+      </code></pre>
+      
+        <p>
+          <strong>What I learned:</strong> A hash map lets me avoid checking every possible pair.
+          Instead of asking “which two numbers add up to the target?”, I ask “what number do I need
+          to complete the pair?”
         </p>
       </article>
+
+      
     </section>
   </main>
 
