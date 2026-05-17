@@ -549,6 +549,826 @@
           </p>
         </article>
 
+
+        <article class="solution-card">
+            <div class="solution-header">
+              <div>
+                <p class="solution-number">HackerRank</p>
+                <h3>Sales by Match / Sock Merchant</h3>
+              </div>
+              <span class="difficulty easy">Easy</span>
+            </div>
+          
+            <p><strong>Pattern:</strong> Hash map / frequency counting.</p>
+          
+            <p>
+              The goal is to count how many matching pairs of socks exist. Each number represents a sock colour.
+              If a colour appears 5 times, it forms 2 pairs, because one sock is left without a match.
+            </p>
+          
+            <h4>My first working version</h4>
+          
+            <p>
+              My first solution uses a dictionary to count how many times each sock colour appears.
+              After counting, I go through the dictionary and add <code>count // 2</code> for each colour.
+            </p>
+          
+            <pre><code>def sockMerchant(n, ar):
+              hash_map = {}
+              total = 0
+          
+              for i in range(n):
+                  if ar[i] in hash_map.keys():
+                      hash_map[ar[i]] += 1
+                  else:
+                      hash_map[ar[i]] = 1
+          
+              for key in hash_map.keys():
+                  total += hash_map[key] // 2
+          
+              return total
+          </code></pre>
+          
+            <p>
+              This works because integer division by 2 gives the number of full pairs for each colour.
+              For example, if a colour appears <code>5</code> times, then <code>5 // 2 = 2</code> pairs.
+            </p>
+          
+            <h4>Improvement 1: Avoid using <code>.keys()</code></h4>
+          
+            <p>
+              Instead of writing <code>ar[i] in hash_map.keys()</code>, I can write
+              <code>ar[i] in hash_map</code>. It means the same thing, but it is cleaner.
+            </p>
+          
+            <pre><code>def sockMerchant(n, ar):
+              hash_map = {}
+              total = 0
+          
+              for i in range(n):
+                  if ar[i] in hash_map:
+                      hash_map[ar[i]] += 1
+                  else:
+                      hash_map[ar[i]] = 1
+          
+              for key in hash_map:
+                  total += hash_map[key] // 2
+          
+              return total
+          </code></pre>
+          
+            <h4>Improvement 2: Iterate directly over the socks</h4>
+          
+            <p>
+              I do not actually need the index <code>i</code>. I only need each sock colour, so I can loop
+              directly over <code>ar</code>.
+            </p>
+          
+            <pre><code>def sockMerchant(n, ar):
+              counts = {}
+              total = 0
+          
+              for sock in ar:
+                  if sock in counts:
+                      counts[sock] += 1
+                  else:
+                      counts[sock] = 1
+          
+              for sock in counts:
+                  total += counts[sock] // 2
+          
+              return total
+          </code></pre>
+          
+            <h4>Improvement 3: Use <code>dict.get()</code></h4>
+          
+            <p>
+              With <code>dict.get()</code>, I can avoid writing the full <code>if/else</code> block when counting.
+            </p>
+          
+            <pre><code>def sockMerchant(n, ar):
+              counts = {}
+          
+              for sock in ar:
+                  counts[sock] = counts.get(sock, 0) + 1
+          
+              total = 0
+          
+              for count in counts.values():
+                  total += count // 2
+          
+              return total
+          </code></pre>
+          
+            <h4>Improvement 4: Use <code>Counter</code></h4>
+          
+            <p>
+              Since this is a frequency-counting problem, <code>Counter</code> gives a very clean Python solution.
+            </p>
+          
+            <pre><code>from collections import Counter
+          
+          def sockMerchant(n, ar):
+              counts = Counter(ar)
+              return sum(count // 2 for count in counts.values())
+          </code></pre>
+          
+            <p>
+              This is the cleanest version. It directly says: count the socks, then sum the number of pairs
+              for each colour.
+            </p>
+          
+            <h4>Optional improvement: Count pairs while scanning</h4>
+          
+            <p>
+              Another approach is to count pairs immediately. I keep a set of unmatched socks. When I see a sock
+              colour for the first time, I store it. When I see the same colour again, I remove it and count one pair.
+            </p>
+          
+            <pre><code>def sockMerchant(n, ar):
+              unmatched = set()
+              pairs = 0
+          
+              for sock in ar:
+                  if sock in unmatched:
+                      pairs += 1
+                      unmatched.remove(sock)
+                  else:
+                      unmatched.add(sock)
+          
+              return pairs
+          </code></pre>
+          
+            <p>
+              This version is nice because it does not need to store full counts. It only tracks socks waiting
+              for a match.
+            </p>
+          
+            <p>
+              <strong>Complexity:</strong> All versions take O(n) time. The dictionary and Counter versions use
+              O(k) space, where <code>k</code> is the number of unique sock colours. The unmatched-set version
+              also uses O(k) space.
+            </p>
+          
+            <p>
+              <strong>What I learned:</strong> This is a frequency-counting problem. A dictionary is enough,
+              but <code>Counter</code> makes the counting cleaner. The set approach is also useful because it
+              counts pairs as they appear instead of counting everything first.
+            </p>
+          </article>
+
+          <article class="solution-card">
+            <div class="solution-header">
+              <div>
+                <p class="solution-number">238</p>
+                <h3>Product of Array Except Self</h3>
+              </div>
+              <span class="difficulty medium">Medium</span>
+            </div>
+          
+            <p><strong>Pattern:</strong> Prefix product / suffix product.</p>
+          
+            <p>
+              The goal is to build an array where each position contains the product of all numbers except
+              the number at that position. The tricky part is doing this without using division.
+            </p>
+          
+            <h4>My first working idea: total product with zero handling</h4>
+          
+            <p>
+              My first solution calculated the product of all non-zero numbers and then handled three cases:
+              no zeros, exactly one zero, and more than one zero.
+            </p>
+          
+            <pre><code>class Solution:
+              def productExceptSelf(self, nums: list[int]) -> list[int]:
+                  product = 1
+                  has_zeros = False
+                  exactly_one_zero = False
+                  n = len(nums)
+          
+                  for el in nums:
+                      if el == 0:
+                          if not exactly_one_zero and has_zeros:
+                              continue
+                          elif exactly_one_zero:
+                              exactly_one_zero = False
+                          else:
+                              has_zeros = True
+                              exactly_one_zero = True
+                      else:
+                          product *= el
+          
+                  if has_zeros and not exactly_one_zero:
+                      return [0] * n
+          
+                  answer = [0] * n
+          
+                  for i in range(n):
+                      if exactly_one_zero:
+                          if nums[i] == 0:
+                              answer[i] = product
+                      else:
+                          answer[i] = product // nums[i]
+          
+                  return answer
+          </code></pre>
+          
+            <p>
+              This works by separating the zero cases. If there are two or more zeros, every product except
+              self contains at least one zero, so the whole answer is zero. If there is exactly one zero,
+              only the zero position gets the product of all non-zero values.
+            </p>
+          
+            <h4>Improvement 1: Simplify the zero-count logic</h4>
+          
+            <p>
+              Instead of using two boolean variables, I can count how many zeros there are. This makes the
+              logic easier to read.
+            </p>
+          
+            <pre><code>class Solution:
+              def productExceptSelf(self, nums: list[int]) -> list[int]:
+                  zero_count = nums.count(0)
+                  n = len(nums)
+          
+                  if zero_count > 1:
+                      return [0] * n
+          
+                  product = 1
+                  for num in nums:
+                      if num != 0:
+                          product *= num
+          
+                  answer = [0] * n
+          
+                  if zero_count == 1:
+                      for i, num in enumerate(nums):
+                          if num == 0:
+                              answer[i] = product
+                      return answer
+          
+                  for i, num in enumerate(nums):
+                      answer[i] = product // num
+          
+                  return answer
+          </code></pre>
+          
+            <p>
+              This version is cleaner, but it still uses division. That means it does not fully satisfy the
+              intended constraint of the problem.
+            </p>
+          
+            <h4>Improvement 2: Prefix and suffix products</h4>
+          
+            <p>
+              The better idea is to avoid division completely. For each position, I need the product of
+              everything on the left and everything on the right.
+            </p>
+          
+            <p>
+              For example, for index <code>i</code>:
+            </p>
+          
+            <pre><code>answer[i] = product of nums before i * product of nums after i</code></pre>
+          
+            <p>
+              So I can first build prefix products from the left, then multiply by suffix products from the right.
+            </p>
+          
+            <pre><code>class Solution:
+              def productExceptSelf(self, nums: list[int]) -> list[int]:
+                  n = len(nums)
+          
+                  prefix = [1] * n
+                  suffix = [1] * n
+                  answer = [1] * n
+          
+                  for i in range(1, n):
+                      prefix[i] = prefix[i - 1] * nums[i - 1]
+          
+                  for i in range(n - 2, -1, -1):
+                      suffix[i] = suffix[i + 1] * nums[i + 1]
+          
+                  for i in range(n):
+                      answer[i] = prefix[i] * suffix[i]
+          
+                  return answer
+          </code></pre>
+          
+            <p>
+              This version works even when the array contains zeros, because it never divides by anything.
+            </p>
+          
+            <h4>Improvement 3: Optimised prefix/suffix solution</h4>
+          
+            <p>
+              I do not actually need separate <code>prefix</code> and <code>suffix</code> arrays. I can store
+              prefix products directly in the answer array, then multiply by suffix products while scanning
+              from the right.
+            </p>
+          
+            <pre><code>class Solution:
+              def productExceptSelf(self, nums: list[int]) -> list[int]:
+                  n = len(nums)
+                  answer = [1] * n
+          
+                  prefix_product = 1
+                  for i in range(n):
+                      answer[i] = prefix_product
+                      prefix_product *= nums[i]
+          
+                  suffix_product = 1
+                  for i in range(n - 1, -1, -1):
+                      answer[i] *= suffix_product
+                      suffix_product *= nums[i]
+          
+                  return answer
+          </code></pre>
+          
+            <p>
+              In the first pass, <code>answer[i]</code> stores the product of everything to the left of
+              <code>i</code>. In the second pass, I multiply it by the product of everything to the right.
+            </p>
+          
+            <p>
+              <strong>Complexity:</strong> The final solution takes O(n) time. It uses O(1) extra space if the
+              output array is not counted as extra space.
+            </p>
+          
+            <p>
+              <strong>What I learned:</strong> My first instinct was to calculate the total product and divide,
+              but the stronger solution is to split the problem into left-side products and right-side products.
+              Prefix and suffix thinking removes the need for division and automatically handles zeros.
+            </p>
+          </article>
+
+          <article class="solution-card">
+            <div class="solution-header">
+              <div>
+                <p class="solution-number">303</p>
+                <h3>Range Sum Query - Immutable</h3>
+              </div>
+              <span class="difficulty easy">Easy</span>
+            </div>
+          
+            <p><strong>Pattern:</strong> Prefix sum.</p>
+          
+            <p>
+              The goal is to return the sum of elements between two indices, <code>left</code> and
+              <code>right</code>, many times. The array does not change, so it makes sense to do some
+              preprocessing once and make every later query faster.
+            </p>
+          
+            <h4>My first working version</h4>
+          
+            <p>
+              My first solution stored a copy of the input array. Every time <code>sumRange</code> was called,
+              I looped from <code>left</code> to <code>right</code> and added the values manually.
+            </p>
+          
+            <pre><code>class NumArray:
+          
+              def __init__(self, nums: list[int]):
+                  self.array = nums.copy()
+          
+              def sumRange(self, left: int, right: int) -> int:
+                  total = 0
+          
+                  for i in range(left, right + 1):
+                      total += self.array[i]
+          
+                  return total
+          </code></pre>
+          
+            <p>
+              This works correctly. The problem is that if the range is large, or if <code>sumRange</code>
+              is called many times, I keep repeating the same addition work again and again.
+            </p>
+          
+            <p>
+              <strong>Complexity of my first version:</strong> O(n) time per query in the worst case,
+              and O(n) space because I store a copy of the array.
+            </p>
+          
+            <h4>Improvement: Prefix sum array</h4>
+          
+            <p>
+              A prefix sum array stores the running total up to each position. Then a range sum can be
+              calculated by subtracting two prefix sums.
+            </p>
+          
+            <p>
+              I use one extra starting value, <code>0</code>, so the prefix array is one element longer than
+              the original array. This makes the formula cleaner.
+            </p>
+          
+            <pre><code>class NumArray:
+          
+              def __init__(self, nums: list[int]):
+                  self.prefix = [0]
+          
+                  for num in nums:
+                      self.prefix.append(self.prefix[-1] + num)
+          
+              def sumRange(self, left: int, right: int) -> int:
+                  return self.prefix[right + 1] - self.prefix[left]
+          </code></pre>
+          
+            <p>
+              For example, if I want the sum from index <code>left</code> to index <code>right</code>,
+              I take the total up to <code>right</code> and subtract the total before <code>left</code>.
+            </p>
+          
+            <pre><code>sum(left, right) = prefix[right + 1] - prefix[left]</code></pre>
+          
+            <p>
+              This gives the answer immediately, without looping through the range again.
+            </p>
+          
+            <p>
+              <strong>Complexity of the improved version:</strong> O(n) time during initialization,
+              O(1) time per query, and O(n) space for the prefix sum array.
+            </p>
+          
+            <p>
+              <strong>What I learned:</strong> If the same kind of range query is asked many times,
+              it is often worth preprocessing the array. Prefix sums turn repeated summing into one
+              subtraction.
+            </p>
+          </article>
+
+          <article class="solution-card">
+            <div class="solution-header">
+              <div>
+                <p class="solution-number">724</p>
+                <h3>Find Pivot Index</h3>
+              </div>
+              <span class="difficulty easy">Easy</span>
+            </div>
+          
+            <p><strong>Pattern:</strong> Prefix sum / running left sum.</p>
+          
+            <p>
+              The goal is to find an index where the sum of all numbers on the left is equal to
+              the sum of all numbers on the right. That index is called the pivot index.
+            </p>
+          
+            <h4>My first working version</h4>
+          
+            <p>
+              My solution first calculates the total sum of the array. Then, while scanning through the
+              array, I keep track of the sum on the left side. The right side can be calculated using
+              the total sum.
+            </p>
+          
+            <pre><code>class Solution:
+              def pivotIndex(self, nums: list[int]) -> int:
+                  total = 0
+          
+                  for el in nums:
+                      total += el
+          
+                  sum_left = 0
+          
+                  for i in range(len(nums)):
+                      rem = total - sum_left - nums[i]
+          
+                      if rem == sum_left:
+                          return i
+          
+                      sum_left += nums[i]
+          
+                  return -1
+          </code></pre>
+          
+            <p>
+              This works because at each index, I can calculate the right-side sum without looping
+              through the rest of the array.
+            </p>
+          
+            <pre><code>right_sum = total_sum - left_sum - current_number</code></pre>
+          
+            <p>
+              If <code>right_sum</code> is equal to <code>left_sum</code>, then the current index is the pivot.
+            </p>
+          
+            <h4>Improvement 1: Use clearer variable names</h4>
+          
+            <p>
+              The logic is already good, but the variable name <code>rem</code> can be clearer.
+              Since it represents the sum on the right side, I renamed it to <code>right_sum</code>.
+            </p>
+          
+            <pre><code>class Solution:
+              def pivotIndex(self, nums: list[int]) -> int:
+                  total_sum = 0
+          
+                  for num in nums:
+                      total_sum += num
+          
+                  left_sum = 0
+          
+                  for i in range(len(nums)):
+                      right_sum = total_sum - left_sum - nums[i]
+          
+                      if left_sum == right_sum:
+                          return i
+          
+                      left_sum += nums[i]
+          
+                  return -1
+          </code></pre>
+          
+            <h4>Improvement 2: Use built-in <code>sum()</code> and <code>enumerate()</code></h4>
+          
+            <p>
+              Python already has <code>sum()</code> for calculating the total. Also, using
+              <code>enumerate()</code> lets me loop over both the index and the value cleanly.
+            </p>
+          
+            <pre><code>class Solution:
+              def pivotIndex(self, nums: list[int]) -> int:
+                  total_sum = sum(nums)
+                  left_sum = 0
+          
+                  for i, num in enumerate(nums):
+                      right_sum = total_sum - left_sum - num
+          
+                      if left_sum == right_sum:
+                          return i
+          
+                      left_sum += num
+          
+                  return -1
+          </code></pre>
+          
+            <p>
+              This is the cleanest version of the same idea. It is still doing exactly what my first
+              solution did, just with clearer Python.
+            </p>
+          
+            <p>
+              <strong>Complexity:</strong> O(n) time and O(1) extra space.
+            </p>
+          
+            <p>
+              <strong>What I learned:</strong> I do not need to calculate the left and right sums from
+              scratch for every index. If I know the total sum and keep a running left sum, I can get
+              the right sum immediately.
+            </p>
+          </article>
+
+
+          <article class="solution-card">
+            <div class="solution-header">
+              <div>
+                <p class="solution-number">169</p>
+                <h3>Majority Element</h3>
+              </div>
+              <span class="difficulty easy">Easy</span>
+            </div>
+          
+            <p><strong>Pattern:</strong> Sorting / hash map / Boyer-Moore voting.</p>
+          
+            <p>
+              The goal is to find the element that appears more than <code>n / 2</code> times.
+              This element is guaranteed to exist.
+            </p>
+          
+            <h4>My first working version</h4>
+          
+            <p>
+              My first solution sorts the array and returns the middle element. This works because the
+              majority element appears more than half of the time, so after sorting it must pass through
+              the middle position.
+            </p>
+          
+            <pre><code>class Solution:
+              def majorityElement(self, nums: list[int]) -> int:
+                  elems = sorted(nums)
+                  return elems[len(nums) // 2]
+          </code></pre>
+          
+            <p>
+              For example, if <code>2</code> is the majority element, then after sorting, there are so many
+              <code>2</code>s that one of them must be located at the middle index.
+            </p>
+          
+            <p>
+              <strong>Complexity of my first version:</strong> O(n log n) time because of sorting,
+              and O(n) space because <code>sorted(nums)</code> creates a new list.
+            </p>
+          
+            <h4>Improvement 1: Sort in place</h4>
+          
+            <p>
+              If I am allowed to modify the input array, I can sort it in place. The logic stays the same,
+              but I avoid creating a separate sorted copy.
+            </p>
+          
+            <pre><code>class Solution:
+              def majorityElement(self, nums: list[int]) -> int:
+                  nums.sort()
+                  return nums[len(nums) // 2]
+          </code></pre>
+          
+            <p>
+              This is still O(n log n) time, but it avoids the extra list created by <code>sorted()</code>.
+            </p>
+          
+            <h4>Improvement 2: Use a hash map / Counter</h4>
+          
+            <p>
+              Another approach is to count how many times each number appears. Once a number appears more
+              than half of the array length, it is the majority element.
+            </p>
+          
+            <pre><code>from collections import Counter
+          
+          class Solution:
+              def majorityElement(self, nums: list[int]) -> int:
+                  counts = Counter(nums)
+                  majority_limit = len(nums) // 2
+          
+                  for num, count in counts.items():
+                      if count > majority_limit:
+                          return num
+          </code></pre>
+          
+            <p>
+              This version is easy to understand because it directly follows the definition of a majority
+              element: the value with count greater than <code>n / 2</code>.
+            </p>
+          
+            <p>
+              <strong>Complexity:</strong> O(n) time and O(n) space.
+            </p>
+          
+            <h4>Improvement 3: Boyer-Moore voting algorithm</h4>
+          
+            <p>
+              The most efficient approach is the Boyer-Moore voting algorithm. The idea is to keep one
+              candidate and a counter. If the counter becomes zero, I choose the current number as the new
+              candidate.
+            </p>
+          
+            <p>
+              Intuitively, different numbers cancel each other out. Since the majority element appears more
+              than all other elements combined, it survives until the end.
+            </p>
+          
+            <pre><code>class Solution:
+              def majorityElement(self, nums: list[int]) -> int:
+                  candidate = None
+                  count = 0
+          
+                  for num in nums:
+                      if count == 0:
+                          candidate = num
+          
+                      if num == candidate:
+                          count += 1
+                      else:
+                          count -= 1
+          
+                  return candidate
+          </code></pre>
+          
+            <p>
+              This works because the problem guarantees that a majority element exists. If that guarantee did
+              not exist, I would need one extra pass to verify that the candidate really appears more than
+              <code>n / 2</code> times.
+            </p>
+          
+            <p>
+              <strong>Complexity of the final version:</strong> O(n) time and O(1) extra space.
+            </p>
+          
+            <p>
+              <strong>What I learned:</strong> Sorting gives a very simple solution because the majority element
+              must occupy the middle position. Counting makes the logic explicit. Boyer-Moore is the strongest
+              version because it finds the answer in one pass using constant space.
+            </p>
+          </article>
+
+          <article class="solution-card">
+            <div class="solution-header">
+              <div>
+                <p class="solution-number">128</p>
+                <h3>Longest Consecutive Sequence</h3>
+              </div>
+              <span class="difficulty medium">Medium</span>
+            </div>
+          
+            <p><strong>Pattern:</strong> Set lookup / sequence starting points.</p>
+          
+            <p>
+              The goal is to find the length of the longest sequence of consecutive numbers.
+              The sequence does not need to appear in order in the original array.
+            </p>
+          
+            <h4>My first working version</h4>
+          
+            <p>
+              My solution converts the list into a set, so I can check whether a number exists in O(1)
+              average time. Then, for each number, I only start counting if that number is the beginning
+              of a sequence.
+            </p>
+          
+            <pre><code>class Solution:
+              def longestConsecutive(self, nums: list[int]) -> int:
+                  nums = set(nums)
+                  max_count = 0
+          
+                  for number in nums:
+                      if number - 1 not in nums:
+                          y = number + 1
+          
+                          while y in nums:
+                              y += 1
+          
+                          max_count = max(max_count, y - number)
+          
+                  return max_count
+          </code></pre>
+          
+            <p>
+              This works because a number is the start of a sequence only if the previous number does not
+              exist. For example, <code>1</code> is the start of <code>1, 2, 3, 4</code> because
+              <code>0</code> is not in the set.
+            </p>
+          
+            <h4>Improvement 1: Use clearer variable names</h4>
+          
+            <p>
+              The logic is already strong, but the variable name <code>y</code> is not very descriptive.
+              I can rename it to <code>current_num</code> or <code>next_num</code> to make the code easier
+              to read.
+            </p>
+          
+            <pre><code>class Solution:
+              def longestConsecutive(self, nums: list[int]) -> int:
+                  num_set = set(nums)
+                  longest = 0
+          
+                  for num in num_set:
+                      if num - 1 not in num_set:
+                          next_num = num + 1
+          
+                          while next_num in num_set:
+                              next_num += 1
+          
+                          longest = max(longest, next_num - num)
+          
+                  return longest
+          </code></pre>
+          
+            <h4>Improvement 2: Track current length explicitly</h4>
+          
+            <p>
+              Another readable version is to keep a separate <code>current_length</code> variable.
+              This makes the counting logic more obvious.
+            </p>
+          
+            <pre><code>class Solution:
+              def longestConsecutive(self, nums: list[int]) -> int:
+                  num_set = set(nums)
+                  longest = 0
+          
+                  for num in num_set:
+                      if num - 1 not in num_set:
+                          current_num = num
+                          current_length = 1
+          
+                          while current_num + 1 in num_set:
+                              current_num += 1
+                              current_length += 1
+          
+                          longest = max(longest, current_length)
+          
+                  return longest
+          </code></pre>
+          
+            <p>
+              This version says the idea very directly: start from the first number in a sequence,
+              move forward while the next number exists, and count how long the sequence is.
+            </p>
+          
+            <p>
+              <strong>Complexity:</strong> O(n) time and O(n) space. Even though there is a nested
+              <code>while</code> loop, each number is only visited as part of a sequence once, because
+              counting starts only from sequence beginnings.
+            </p>
+          
+            <p>
+              <strong>What I learned:</strong> The important trick is not just using a set. The real trick
+              is only starting from numbers that have no previous neighbour. That prevents counting the
+              same sequence again and again.
+            </p>
+          </article>
+
+          
       
     </section>
   </main>
