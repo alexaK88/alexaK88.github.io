@@ -251,6 +251,304 @@
         </p>
       </article>
 
+      <article class="solution-card">
+        <div class="solution-header">
+          <div>
+            <p class="solution-number">49</p>
+            <h3>Group Anagrams</h3>
+          </div>
+          <span class="difficulty medium">Medium</span>
+        </div>
+      
+        <p><strong>Pattern:</strong> Hash map / grouping by a shared key.</p>
+      
+        <p>
+          The goal is to group words that are anagrams of each other. Anagrams contain the same
+          characters, only in a different order. The main idea is to create a key that is identical
+          for all anagrams.
+        </p>
+      
+        <h4>My first working version</h4>
+      
+        <p>
+          My first solution used a dictionary where the key was the sorted version of each word.
+          If two words have the same sorted form, they belong in the same group.
+        </p>
+      
+        <pre><code>class Solution:
+          def groupAnagrams(self, strs: list[str]) -> list[list[str]]:
+              hash_map = {}
+              result = []
+      
+              for word in strs:
+                  sorted_word = ''.join(sorted(word))
+      
+                  if sorted_word not in hash_map.keys():
+                      hash_map[sorted_word] = [word]
+                  else:
+                      hash_map[sorted_word].append(word)
+      
+              for key in hash_map.keys():
+                  result.append(hash_map[key])
+      
+              return result
+      </code></pre>
+      
+        <p>
+          This works correctly. For example, <code>"eat"</code>, <code>"tea"</code>, and
+          <code>"ate"</code> all become <code>"aet"</code> after sorting, so they are stored under
+          the same dictionary key.
+        </p>
+      
+        <h4>Improvement 1: Avoid using <code>.keys()</code> for membership checks</h4>
+      
+        <p>
+          Instead of writing <code>sorted_word not in hash_map.keys()</code>, I can write
+          <code>sorted_word not in hash_map</code>. It means the same thing, but it is cleaner
+          and more Pythonic.
+        </p>
+      
+        <pre><code>class Solution:
+          def groupAnagrams(self, strs: list[str]) -> list[list[str]]:
+              hash_map = {}
+              result = []
+      
+              for word in strs:
+                  sorted_word = ''.join(sorted(word))
+      
+                  if sorted_word not in hash_map:
+                      hash_map[sorted_word] = [word]
+                  else:
+                      hash_map[sorted_word].append(word)
+      
+              for key in hash_map:
+                  result.append(hash_map[key])
+      
+              return result
+      </code></pre>
+      
+        <h4>Improvement 2: Return dictionary values directly</h4>
+      
+        <p>
+          The dictionary already stores the final groups as values. So I do not need to create
+          a separate <code>result</code> list manually. I can return <code>list(hash_map.values())</code>.
+        </p>
+      
+        <pre><code>class Solution:
+          def groupAnagrams(self, strs: list[str]) -> list[list[str]]:
+              hash_map = {}
+      
+              for word in strs:
+                  sorted_word = ''.join(sorted(word))
+      
+                  if sorted_word not in hash_map:
+                      hash_map[sorted_word] = [word]
+                  else:
+                      hash_map[sorted_word].append(word)
+      
+              return list(hash_map.values())
+      </code></pre>
+      
+        <h4>Improvement 3: Use <code>defaultdict</code></h4>
+      
+        <p>
+          With <code>defaultdict(list)</code>, I do not need to manually check whether the key
+          already exists. If the key is new, Python automatically creates an empty list for it.
+        </p>
+      
+        <pre><code>from collections import defaultdict
+      
+      class Solution:
+          def groupAnagrams(self, strs: list[str]) -> list[list[str]]:
+              groups = defaultdict(list)
+      
+              for word in strs:
+                  key = ''.join(sorted(word))
+                  groups[key].append(word)
+      
+              return list(groups.values())
+      </code></pre>
+      
+        <p>
+          This is the cleanest version of the sorted-key approach.
+        </p>
+      
+        <h4>Optional improvement: Character-count key</h4>
+      
+        <p>
+          Sorting each word works well, but sorting costs extra time. Another approach is to count
+          how many times each letter appears and use that count as the key.
+        </p>
+      
+        <pre><code>from collections import defaultdict
+      
+      class Solution:
+          def groupAnagrams(self, strs: list[str]) -> list[list[str]]:
+              groups = defaultdict(list)
+      
+              for word in strs:
+                  counts = [0] * 26
+      
+                  for ch in word:
+                      counts[ord(ch) - ord('a')] += 1
+      
+                  groups[tuple(counts)].append(word)
+      
+              return list(groups.values())
+      </code></pre>
+      
+        <p>
+          This avoids sorting, but it assumes the input contains only lowercase English letters.
+          The sorted-key version is easier to read and more general.
+        </p>
+      
+        <p>
+          <strong>Complexity:</strong> The sorted-key solution takes O(n · k log k) time, where
+          <code>n</code> is the number of words and <code>k</code> is the maximum word length.
+          The character-count solution takes O(n · k) time. Both use O(n · k) space to store the groups.
+        </p>
+      
+        <p>
+          <strong>What I learned:</strong> The important part of grouping problems is choosing a good
+          key. Here, sorting each word creates the same key for all anagrams. Then the hash map does
+          the grouping for me.
+        </p>
+      </article>
+
+      <article class="solution-card">
+          <div class="solution-header">
+            <div>
+              <p class="solution-number">347</p>
+              <h3>Top K Frequent Elements</h3>
+            </div>
+            <span class="difficulty medium">Medium</span>
+          </div>
+        
+          <p><strong>Pattern:</strong> Hash map / frequency counting.</p>
+        
+          <p>
+            The goal is to return the <code>k</code> numbers that appear most often in the array.
+            The first step is to count how many times each number appears. After that, I need to
+            extract the numbers with the highest frequencies.
+          </p>
+        
+          <h4>My first working version</h4>
+        
+          <p>
+            My first solution used <code>Counter</code>, which is a clean Python tool for counting
+            frequencies. Then I used <code>most_common(k)</code> to get the <code>k</code> most frequent
+            elements.
+          </p>
+        
+          <pre><code>from collections import Counter
+        from typing import List
+        
+        class Solution:
+            def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+                list_most_common = []
+                cnt = Counter(nums)
+        
+                for i, (key, frequency) in enumerate(cnt.most_common(k)):
+                    list_most_common.append(key)
+        
+                return list_most_common
+        </code></pre>
+        
+          <p>
+            This works correctly. <code>Counter(nums)</code> creates a frequency map, and
+            <code>most_common(k)</code> returns the most frequent values together with their counts.
+          </p>
+        
+          <h4>Improvement 1: Remove unused variables</h4>
+        
+          <p>
+            In my first version, I used <code>enumerate</code>, but I did not actually need the index.
+            I also did not need to store the frequency because the final answer only asks for the numbers.
+          </p>
+        
+          <pre><code>from collections import Counter
+        
+        class Solution:
+            def topKFrequent(self, nums: list[int], k: int) -> list[int]:
+                result = []
+                counts = Counter(nums)
+        
+                for num, freq in counts.most_common(k):
+                    result.append(num)
+        
+                return result
+        </code></pre>
+        
+          <h4>Improvement 2: Use a list comprehension</h4>
+        
+          <p>
+            Since I only want the numbers from <code>most_common(k)</code>, I can make the code even
+            shorter with a list comprehension.
+          </p>
+        
+          <pre><code>from collections import Counter
+        
+        class Solution:
+            def topKFrequent(self, nums: list[int], k: int) -> list[int]:
+                counts = Counter(nums)
+                return [num for num, freq in counts.most_common(k)]
+        </code></pre>
+        
+          <p>
+            This is the cleanest Pythonic version. It is short, readable, and uses the standard library well.
+          </p>
+        
+          <h4>Interview-style improvement: Bucket sort</h4>
+        
+          <p>
+            The <code>Counter</code> solution is clean, but for interviews it is useful to know the bucket-sort
+            idea too. The maximum possible frequency is <code>len(nums)</code>, so I can create buckets where
+            the index represents the frequency.
+          </p>
+        
+          <p>
+            For example, if a number appears 3 times, I put it into bucket <code>3</code>. Then I scan the buckets
+            from highest frequency to lowest frequency until I collect <code>k</code> numbers.
+          </p>
+        
+          <pre><code>from collections import Counter
+        
+        class Solution:
+            def topKFrequent(self, nums: list[int], k: int) -> list[int]:
+                counts = Counter(nums)
+        
+                buckets = [[] for _ in range(len(nums) + 1)]
+        
+                for num, freq in counts.items():
+                    buckets[freq].append(num)
+        
+                result = []
+        
+                for freq in range(len(buckets) - 1, 0, -1):
+                    for num in buckets[freq]:
+                        result.append(num)
+        
+                        if len(result) == k:
+                            return result
+        </code></pre>
+        
+          <p>
+            This version avoids sorting the numbers by frequency. Instead, it uses frequency as an index.
+          </p>
+        
+          <p>
+            <strong>Complexity:</strong> The <code>Counter</code> version is very clean, but the internal work is
+            hidden inside <code>most_common</code>. The bucket-sort version has O(n) time and O(n) space, because
+            it counts the numbers, places them into buckets, and scans the buckets once.
+          </p>
+        
+          <p>
+            <strong>What I learned:</strong> <code>Counter</code> is excellent for writing clean Python code,
+            but the bucket-sort approach shows the deeper algorithmic idea: when frequencies are bounded by
+            the array length, I can use the frequency itself as a position in an array.
+          </p>
+        </article>
+
       
     </section>
   </main>
