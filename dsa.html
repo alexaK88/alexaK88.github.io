@@ -100,6 +100,157 @@
         </p>
       </article>
 
+      <article class="solution-card">
+        <div class="solution-header">
+          <div>
+            <p class="solution-number">242</p>
+            <h3>Valid Anagram</h3>
+          </div>
+          <span class="difficulty easy">Easy</span>
+        </div>
+      
+        <p><strong>Pattern:</strong> Hash map / frequency counting.</p>
+      
+        <p>
+          Two strings are anagrams if they contain the same characters with the same frequencies.
+          For example, <code>"anagram"</code> and <code>"nagaram"</code> are anagrams because every
+          character appears the same number of times in both strings.
+        </p>
+      
+        <h4>Approach 1: Pythonic solution with Counter</h4>
+      
+        <p>
+          The shortest and cleanest solution is to use <code>Counter</code>. It creates a frequency map
+          for each string, then compares the two maps directly.
+        </p>
+      
+        <pre><code>from collections import Counter
+      
+      class Solution:
+          def isAnagram(self, s: str, t: str) -> bool:
+              return Counter(s) == Counter(t)
+      </code></pre>
+      
+        <p>
+          This version is very readable because the code directly says what we mean:
+          count the characters in both strings and compare the counts.
+        </p>
+      
+        <h4>Approach 2: Manual hash map solution</h4>
+      
+        <p>
+          The manual solution does the same thing, but without using <code>Counter</code>.
+          First, I count all characters in the first string. Then, while scanning the second string,
+          I subtract from those counts. If a character is missing or used too many times, the strings
+          cannot be anagrams.
+        </p>
+      
+        <pre><code>class Solution:
+          def isAnagram(self, s: str, t: str) -> bool:
+              if len(s) != len(t):
+                  return False
+      
+              counts = {}
+      
+              for ch in s:
+                  if ch not in counts:
+                      counts[ch] = 1
+                  else:
+                      counts[ch] += 1
+      
+              for ch in t:
+                  if ch not in counts or counts[ch] == 0:
+                      return False
+                  counts[ch] -= 1
+      
+              return True
+      </code></pre>
+      
+        <p>
+          <strong>Complexity:</strong> O(n) time. The space complexity is O(1) if the alphabet is fixed,
+          for example only lowercase English letters, and O(k) in the general case, where <code>k</code>
+          is the number of unique characters.
+        </p>
+      
+        <p>
+          <strong>What I learned:</strong> <code>Counter</code> is great for clean Python code, but the
+          manual hash map version is useful because it shows the actual logic behind frequency counting.
+        </p>
+      </article>
+
+
+      <article class="solution-card">
+        <div class="solution-header">
+          <div>
+            <p class="solution-number">217</p>
+            <h3>Contains Duplicate</h3>
+          </div>
+          <span class="difficulty easy">Easy</span>
+        </div>
+      
+        <p><strong>Pattern:</strong> Set / hash-based lookup.</p>
+      
+        <p>
+          The task is to check whether any value appears more than once in the array.
+          The key idea is that sets and hash maps can tell us very quickly whether we have
+          already seen a value before.
+        </p>
+      
+        <h4>Approach 1: Set length comparison</h4>
+      
+        <p>
+          A set only stores unique values. So if the set is smaller than the original list,
+          that means at least one value appeared more than once.
+        </p>
+      
+        <pre><code>class Solution:
+          def containsDuplicate(self, nums: list[int]) -> bool:
+              unique_values = set(nums)
+              return len(unique_values) < len(nums)
+      </code></pre>
+      
+        <p>
+          This is the cleanest Python solution because it directly uses the property of a set:
+          duplicates are automatically removed.
+        </p>
+      
+        <h4>Approach 2: Manual hash map solution</h4>
+      
+        <p>
+          Another way is to scan through the array and store every number I have already seen.
+          If I reach a number that is already in the hash map, I immediately know there is a duplicate.
+        </p>
+      
+        <pre><code>class Solution:
+          def containsDuplicate(self, nums: list[int]) -> bool:
+              seen = {}
+      
+              for num in nums:
+                  if num in seen:
+                      return True
+      
+                  seen[num] = 1
+      
+              return False
+      </code></pre>
+      
+        <p>
+          This version is slightly more verbose, but it is useful because it shows the general
+          hash-map idea used in many array problems: store what has already appeared, then check
+          future values against it.
+        </p>
+      
+        <p>
+          <strong>Complexity:</strong> O(n) time and O(n) space for both approaches.
+        </p>
+      
+        <p>
+          <strong>What I learned:</strong> If the problem only asks whether duplicates exist,
+          a set is usually enough. A hash map becomes more useful when I also need counts,
+          positions, or extra information about each value.
+        </p>
+      </article>
+
       
     </section>
   </main>
