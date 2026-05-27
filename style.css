@@ -317,6 +317,18 @@ p {
   background: rgba(255, 255, 255, 0.035);
 }
 
+.project-links {
+  margin-top: auto;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.project-note {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
 
 /* ================================
    ABOUT
