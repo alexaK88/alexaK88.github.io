@@ -110,6 +110,13 @@ a:hover {
 /* ================================
    GLOBAL LAYOUT
 ================================ */
+.section-intro {
+  max-width: 680px;
+  margin-top: -18px;
+  margin-bottom: 32px;
+  color: var(--muted);
+  line-height: 1.7;
+}
 
 section,
 .hero {
