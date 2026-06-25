@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diver Wearable Simulator – Aleksandra Karpova</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <nav class="navbar">
+    <a href="index.html">About</a>
+    <a href="projects.html">Projects</a>
+    <a href="index.html#skills">Skills</a>
+    <a href="journey.html">Journey</a>
+    <a href="blog.html">Blog</a>
+    <a href="cv_new.pdf" class="nav-cv">CV</a>
+  </nav>
+
+  <header class="hero">
+    <p class="hero-eyebrow">Autonomous Systems • Python • Safety Monitoring</p>
+    <h1 class="hero-title">Autonomous Diver Companion</h1>
+    <h2 class="hero-subtitle">Diver Wearable Safety Simulator</h2>
+
+    <p class="hero-summary">
+      A Python-based simulator for the wearable-side safety pipeline of an autonomous underwater
+      diver companion system. The project models simulated diver telemetry, preprocessing,
+      state estimation, and local alarm generation.
+    </p>
+
+    <div class="hero-actions">
+      <a class="cv-button" href="projects.html">← Back to Projects</a>
+      <a class="cv-button secondary-button" href="https://github.com/alexaK88/YOUR_REPO_NAME" target="_blank">
+        GitHub Repo →
+      </a>
+    </div>
+  </header>
+
+  <section class="card">
+    <h3>Overview</h3>
+    <p>
+      This project represents the wearable-side component of a larger autonomous diver companion
+      concept. The current module simulates a diver-worn device that produces raw local telemetry,
+      processes the data into safety-relevant signals, estimates the diver's current state, and
+      generates structured safety packets.
+    </p>
+
+    <p>
+      The focus is on clean backend architecture, typed data models, modular processing stages,
+      and safety-oriented rule evaluation. The system is designed as a foundation for later
+      integration with a companion robot, surface gateway, backend service, and operator dashboard.
+    </p>
+  </section>
+
+  <section class="card">
+    <h3>Problem & Goals</h3>
+    <ul>
+      <li>
+        <strong>Problem:</strong> Underwater divers may face safety-critical situations such as
+        fast ascent, low gas, lost communication, no motion, or explicit emergency conditions.
+      </li>
+      <li>
+        <strong>Goal:</strong> Build a modular wearable-side simulator that converts raw diver
+        telemetry into structured safety information.
+      </li>
+      <li>
+        <strong>Outcome:</strong> A first working vertical slice of the wearable safety pipeline:
+        raw packets → preprocessing → state estimation → alarm evaluation.
+      </li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h3>Current Pipeline</h3>
+
+    <p>The current wearable-side flow is:</p>
+
+    <pre><code>DiverWearableSimulator
+    ↓
+RawWearablePacket
+    ↓
+SignalPreprocessor
+    ↓
+CleanSensorPacket
+    ↓
+DiverStateEstimator
+    ↓
+DiverState
+    ↓
+AlarmEngine
+    ↓
+DiverSafetyPacket</code></pre>
+
+    <p>
+      Each layer has a separate responsibility. The simulator generates raw measurements, the
+      preprocessor calculates rates, the estimator interprets the diver state, and the alarm engine
+      decides whether the interpreted state is safety-relevant.
+    </p>
+  </section>
+
+  <section class="card">
+    <h3>Implemented Features</h3>
+    <ul>
+      <li>Scenario-based diver wearable simulation</li>
+      <li>Depth, tank pressure, compass heading, motion, battery, button, and link-quality signals</li>
+      <li>Time-based simulation of gas pressure, battery drain, compass heading, and dive profile</li>
+      <li>Preprocessing layer for ascent/descent rate and gas pressure drop rate</li>
+      <li>Diver state estimation for dive phase, motion state, gas state, and link state</li>
+      <li>Rule-based alarm engine for safety-relevant conditions</li>
+      <li>Emergency button propagation through the full pipeline</li>
+      <li>Pytest tests for preprocessing, scenarios, compass behaviour, and end-to-end pipeline logic</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h3>Supported Scenarios</h3>
+    <ul>
+      <li><strong>NORMAL:</strong> baseline simulated dive behaviour</li>
+      <li><strong>LOW_GAS:</strong> low tank pressure scenario</li>
+      <li><strong>FAST_ASCENT:</strong> unsafe ascent rate scenario</li>
+      <li><strong>EMERGENCY_BUTTON:</strong> diver-triggered emergency signal</li>
+      <li><strong>NO_MOTION:</strong> reduced motion signal scenario</li>
+      <li><strong>WEAK_LINK:</strong> degraded wearable communication link</li>
+      <li><strong>LOST_LINK:</strong> near-zero communication quality</li>
+      <li><strong>BATTERY_LOW:</strong> wearable battery warning scenario</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h3>Safety Logic</h3>
+    <p>
+      The alarm engine evaluates interpreted diver states and generates alarm events when a
+      condition becomes safety-relevant. Current alarms include fast ascent, low or critical gas,
+      unusually fast pressure drop, weak or lost link, low wearable battery, no-motion conditions,
+      and emergency button activation.
+    </p>
+
+    <p>
+      The final output is a <code>DiverSafetyPacket</code>, which contains the original interpreted
+      diver state, all detected alarms, and an overall safety state:
+    </p>
+
+    <pre><code>OK
+WARNING
+CRITICAL
+EMERGENCY</code></pre>
+  </section>
+
+  <section class="card">
+    <h3>Tech Stack</h3>
+
+    <div class="project-tags">
+      <span>Python</span>
+      <span>Pydantic</span>
+      <span>Dataclasses</span>
+      <span>Pytest</span>
+      <span>Typed Schemas</span>
+      <span>Simulation</span>
+      <span>Safety Logic</span>
+      <span>Autonomous Systems</span>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>Current Status</h3>
+    <p>
+      The project is currently at the first wearable-side milestone. The local simulation pipeline
+      is implemented and tested, including raw telemetry generation, preprocessing, state
+      estimation, and alarm evaluation.
+    </p>
+
+    <p>
+      The next planned step is to design the robot-side system: packet reception, diver tracking,
+      robot mission state estimation, communication loss handling, and behaviour selection.
+    </p>
+  </section>
+
+  <section class="card">
+    <h3>Future Work</h3>
+    <ul>
+      <li>Packet builder and transmitter for wearable-to-robot communication</li>
+      <li>Communication simulator with packet loss, weak link, and stale packet handling</li>
+      <li>Robot-side diver tracker and mission state estimator</li>
+      <li>Robot behaviour controller for guidance, search, and emergency support modes</li>
+      <li>Surface gateway and backend integration</li>
+      <li>Replay/logging system for scenario analysis</li>
+      <li>Operator dashboard for live safety monitoring</li>
+    </ul>
+  </section>
+
+  <footer>
+    © 2026 Aleksandra Karpova — Portfolio built with GitHub Pages
+  </footer>
+</body>
+</html>
