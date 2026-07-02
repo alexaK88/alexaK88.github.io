@@ -86,21 +86,13 @@
     HYDRA-7 is designed as a modular system rather than a single detection script. The perception runtime separates stream input, frame processing, object detection, decision logic, runtime state, storage, and dashboard communication.
   </p>
 
-  <pre><code>Input Sources
-    ↓
-Stream Manager
-    ↓
-Frame Processor
-    ↓
-Perception Engine
-    ↓
-Decision Engine
-    ↓
-Runtime State
-    ↓
-FastAPI Backend
-    ↓
-Operator Dashboard</code></pre>
+  <div class="project-image-wrap">
+    <img
+      src="assets/imgs/hydra_diagram.png"
+      alt="HYDRA-7 system architecture diagram"
+      class="project-image"
+    >
+  </div>
 
   <p>
     This structure allows the same system to work with different input sources. The first version uses video files and webcam input, while future versions can support RTSP streams, ROS 2 image topics, AUV cameras, or edge-deployed perception nodes.
